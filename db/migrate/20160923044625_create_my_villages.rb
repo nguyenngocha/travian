@@ -8,7 +8,9 @@ class CreateMyVillages < ActiveRecord::Migration[5.0]
       t.integer :wood
       t.integer :clay
       t.integer :iron
+      t.integer :max_warehouse
       t.integer :crop
+      t.integer :max_granary
       t.integer :wood_quanity
       t.integer :clay_quanity
       t.integer :iron_quanity

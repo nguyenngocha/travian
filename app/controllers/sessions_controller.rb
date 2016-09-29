@@ -11,11 +11,11 @@ class SessionsController < ApplicationController
       flash[:danger] = "Dang nhap loi"
       redirect_to login_path
     else
-      race = if @page.css("button.vid_1").present?
+      race = if @page.css("div.playerName img.nation1").present?
         0
-      elsif @page.css("button.vid_2").present?
+      elsif @page.css("div.playerName img.nation2").present?
         1
-      elsif @page.css("button.vid_3").present?
+      elsif @page.css("div.playerName img.nation3").present?
         2
       end
       current_cookies response.cookies
