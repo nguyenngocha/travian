@@ -1,0 +1,27 @@
+<%= provide :title, t("Lands") %>
+
+<h1><%= t "Lands" %></h1>
+<%= link_to new_land_path do %>
+  <div class="btn btn-success">
+    <%= "Add" %>
+    <i class="glyphicon glyphicon-plus"></i>
+  </div>
+<% end %>
+<br/ >
+<br/ >
+<table class="table">
+  <thead>
+    <tr>
+      <th></th>
+      <th><%= "Type" %>
+        <i class="glyphicon glyphicon-equalizer"></i></th>
+      <th><%= "Coordinate X" %></th>
+      <th><%= "coordinate Y" %></th>
+      <th><i class="glyphicon glyphicon-wrench"></i></th>
+      <th><i class="glyphicon glyphicon-trash"></i></th>
+    </tr>
+  </thead>
+  <tbody>
+    <%= render @lands %>
+  </tbody>
+</table>

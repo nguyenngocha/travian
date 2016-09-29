@@ -1,0 +1,10 @@
+<tr>
+  <th><%= land.id %></th>
+  <th><%= land.type_id %></th>
+  <th><%= land.coordinate_x %></th>
+  <th><%= land.coordinate_y %></th>
+  <th><%= link_to "Edit", edit_land_path(land),
+    class: "warning" %></th>
+  <th><%= link_to "Delete", land_path(land), method: :delete,
+    data: {confirm: t("admin.confirm_delete")}, class: "danger" %></th>
+</tr>
