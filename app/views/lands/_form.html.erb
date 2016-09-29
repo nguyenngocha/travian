@@ -1,0 +1,17 @@
+<div class="row">
+  <div class="col-md-4">
+    <%= form_for @land do |f| %>
+      <%= render "shared/error_messages", object: @land %>
+
+      <%= f.label :type_id %>
+      <%= f.number_field :type_id, class: "form-control" %>
+
+      <%= f.label :coordinate_x %>
+      <%= f.number_field :coordinate_x , class: "form-control" %>
+
+      <%= f.label :coordinate_y %>
+      <%= f.number_field :coordinate_y , class: "form-control" %>
+      <%= f.submit yield(:submit), class: "btn btn-success" %>
+    <% end %>    
+  </div>
+</div>

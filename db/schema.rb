@@ -31,7 +31,7 @@ ActiveRecord::Schema.define(version: 20160923050532) do
   end
 
   create_table "lands", force: :cascade do |t|
-    t.integer  "type"
+    t.integer  "type_id"
     t.integer  "coordinate_x"
     t.integer  "coordinate_y"
     t.datetime "created_at",   null: false
