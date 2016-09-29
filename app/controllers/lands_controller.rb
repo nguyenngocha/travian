@@ -1,8 +1,10 @@
 class LandsController < ApplicationController
+  before_action :check_login
   before_action :load_land, only: [:destroy, :edit, :update]
+  before_action :load_village, only: [:destroy, :edit, :update, :new]
 
   def index
-    @lands = Land.all
+    @lands = current_user.lands
   end
 
   def new
@@ -15,6 +17,7 @@ class LandsController < ApplicationController
       flash[:success] = "Add land success!"
       redirect_to lands_path
     else
+      load_village      
       render :new
     end
   end
@@ -25,6 +28,7 @@ class LandsController < ApplicationController
       redirect_to lands_path
     else
       load_land
+      load_village
       render :edit
     end 
   end
@@ -44,8 +48,17 @@ class LandsController < ApplicationController
       redirect_to lands_path
     end
   end
+  def load_village
+    @my_villages = current_user.my_villages.map{|vl| [vl.name, vl.id]} 
+  end
 
   def land_params
-    params.require(:land).permit :type_id, :coordinate_x, :coordinate_y
+    params.require(:land).permit :coordinate_x, :coordinate_y, :user_id,
+      :army1, :army2, :army3, :army4, :army5, :army6, :army7, :army8, :army9, 
+      :army10, :army11
+  end
+
+  def check_login
+    redirect_to login_path unless current_user
   end
 end

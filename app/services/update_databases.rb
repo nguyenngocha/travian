@@ -176,7 +176,6 @@ class UpdateDatabases
         response = RestClient.get("http://ts19.travian.com.vn/dorf1.php" + href.value,
           cookies: {"T3E" => @cookies["T3E"], "lowRes" => "0", "sess_id" => @cookies["sess_id"]})
         @dorf1 = Nokogiri::HTML(response)
-
         return false if check_login? @dorf1 #keim tra xem con dang login khong
 
         myvillage = MyVillage.find_by link: href.value

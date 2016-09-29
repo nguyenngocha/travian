@@ -1,17 +1,69 @@
-<div class="row">
-  <div class="col-md-4">
-    <%= form_for @land do |f| %>
-      <%= render "shared/error_messages", object: @land %>
+<%= form_for @land do |f| %>
+  <%= render "shared/error_messages", object: @land %>
 
-      <%= f.label :type_id %>
-      <%= f.number_field :type_id, class: "form-control" %>
+  <%= f.label :coordinate_x %>
+  <%= f.number_field :coordinate_x , class: "form-control" %>
 
-      <%= f.label :coordinate_x %>
-      <%= f.number_field :coordinate_x , class: "form-control" %>
-
-      <%= f.label :coordinate_y %>
-      <%= f.number_field :coordinate_y , class: "form-control" %>
-      <%= f.submit yield(:submit), class: "btn btn-success" %>
-    <% end %>    
-  </div>
-</div>
+  <%= f.label :coordinate_y %>
+  <%= f.number_field :coordinate_y , class: "form-control" %>
+  <br />
+  <br />
+  <table>
+    <tr>
+      <% if current_user.romans? %>
+        <th>Linh le duong</th>
+        <th>Thi ve</th>
+        <th>Chien binh tinh nhue</th>
+        <th>Ky binh do tham</th>
+        <th>Ky binh</th>
+        <th>Ky binh tinh nhue</th>
+        <th>Xe cong thanh</th>
+        <th>May phong lua</th>
+        <th>Nguyen lao</th>
+        <th>Dan khai hoang</th>
+        <th>Tuong</th>
+      <% elsif current_user.teutons? %>
+        <th>Linh chuy</th>
+        <th>Linh giao</th>
+        <th>Linh riu</th>
+        <th>Do tham</th>
+        <th>Hiep si Paladin</th>
+        <th>Kiep si Teutonic</th>
+        <th>Doi cong thanh</th>
+        <th>May ban da</th>
+        <th>Thu linh</th>
+        <th>Dan khai hoang</th>
+        <th>Tuong</th>
+      <% elsif current_user.gauls? %>
+        <th>Linh pha lang</th>
+        <th>Kiem si</th>
+        <th>Do tham</th>
+        <th>Ky binh sam set</th>
+        <th>Tu si</th>
+        <th>Ky binh</th>
+        <th>May nen</th>
+        <th>May ban da</th>
+        <th>Tu truong</th>
+        <th>Dan khai hoang</th>
+        <th>Tuong</th>
+        <% end %>
+    </tr>
+    <tr>
+      <td><%= f.number_field :army1 %></td>
+      <td><%= f.number_field :army2 %></td>
+      <td><%= f.number_field :army3 %></td>
+      <td><%= f.number_field :army4 %></td>
+      <td><%= f.number_field :army5 %></td>
+      <td><%= f.number_field :army6 %></td>
+      <td><%= f.number_field :army7 %></td>
+      <td><%= f.number_field :army8 %></td>
+      <td><%= f.number_field :army9 %></td>
+      <td><%= f.number_field :army10 %></td>
+      <td><%= f.number_field :army11 %></td>
+    </tr>
+  </table>
+  <%= f.label :my_village %>
+  <%= f.select :my_village_id, @my_villages %>
+  <%= f.hidden_field :user_id, value: current_user.id %>
+  <%= f.submit yield(:submit), class: "btn btn-success" %>
+<% end %>    
