@@ -11,19 +11,14 @@ class UpdateDatabases
     dorf1.css("div#header ul#navigation").empty?
   end
 
-  def load_data dorf1
+  def load_data page
     hash = {army1: 0, army2: 0, army3: 0, army4: 0, army5: 0, army6: 0, army7: 0,
       army8: 0, army9: 0, army10: 0, army11: 0}
-    armys = dorf1.css("div.boxes.villageList.units tbody tr")
+    armys = page.css("table[class = 'troop_details']")[0].css("td.unit")
+    x = 1
     armys.each do |army|
-      if army.css('img').any?
-        uid = army.css('img').attr('class').value.split(/[^\d]/).join.to_i
-        if uid == 0
-          hash[:army11] = 1
-        else
-          hash[("army" + (uid%10).to_s).to_sym] = army.css("td.num").text.to_i
-        end
-      end
+      hash[("army" + x.to_s).to_sym] = army.text.split(/[^\d]/).join.to_i
+      x = x + 1
     end
     return hash
   end
@@ -42,16 +37,24 @@ class UpdateDatabases
       wood: dorf1.css("li#stockBarResource1 span#l1").text.to_i,
       clay: dorf1.css("li#stockBarResource2 span#l2").text.to_i,
       iron: dorf1.css("li#stockBarResource3 span#l3").text.to_i,
+      max_warehouse: dorf1.css("span#stockBarWarehouse").text.to_i,
       crop: dorf1.css("li#stockBarResource4 span#l4").text.to_i,
+      max_granary: dorf1.css("span#stockBarGranary").text.to_i,
       wood_quanity: dorf1.css("table#production td.num")[0].text.split(/[^\d]/).join.to_i,
       clay_quanity: dorf1.css("table#production td.num")[1].text.split(/[^\d]/).join.to_i,
       iron_quanity: dorf1.css("table#production td.num")[2].text.split(/[^\d]/).join.to_i,
       crop_quanity: dorf1.css("table#production td.num")[3].text.split(/[^\d]/).join.to_i
 
-    army = Army.find_by my_village_id: myvillage.id
-    army.update!(load_data dorf1)
+    # update army
+    response = RestClient.get("http://ts19.travian.com.vn/build.php?id=39&tt=1" + href.value,
+      cookies: {"T3E" => @cookies["T3E"], "lowRes" => "0", "sess_id" => @cookies["sess_id"]})
+    page = Nokogiri::HTML(response)
+    return false if check_login? page #keim tra xem con dang login khong
 
-    #load resource
+    army = Army.find_by my_village_id: myvillage.id
+    army.update!(load_data page)
+
+    # update resource
     resources = dorf1.css("div#village_map div.level") # 18 mo
     links = dorf1.css("map[name='rx'] area") #18 link
     (0..17).each do |n|
@@ -96,7 +99,6 @@ class UpdateDatabases
       else
         myvillage.resources.create! gid: @gid, level: @level, upgrade: @upgrade, link: @link
       end
-      # myvillage.resources.create! gid: @gid, level: @level, upgrade: @upgrade, link: @link
     end
 
   end
@@ -108,15 +110,23 @@ class UpdateDatabases
       wood: dorf1.css("li#stockBarResource1 span#l1").text.to_i,
       clay: dorf1.css("li#stockBarResource2 span#l2").text.to_i,
       iron: dorf1.css("li#stockBarResource3 span#l3").text.to_i,
+      max_warehouse: dorf1.css("span#stockBarWarehouse").text.to_i,
       crop: dorf1.css("li#stockBarResource4 span#l4").text.to_i,
+      max_granary: dorf1.css("span#stockBarGranary").text.to_i,
       wood_quanity: dorf1.css("table#production td.num")[0].text.split(/[^\d]/).join.to_i,
       clay_quanity: dorf1.css("table#production td.num")[1].text.split(/[^\d]/).join.to_i,
       iron_quanity: dorf1.css("table#production td.num")[2].text.split(/[^\d]/).join.to_i,
       crop_quanity: dorf1.css("table#production td.num")[3].text.split(/[^\d]/).join.to_i
 
     if myvillage
+
       # tao army
-      myvillage.armies.create!(load_data dorf1) unless Army.find_by my_village_id: myvillage.id
+      response = RestClient.get("http://ts19.travian.com.vn/build.php?id=39&tt=1" + href.value,
+        cookies: {"T3E" => @cookies["T3E"], "lowRes" => "0", "sess_id" => @cookies["sess_id"]})
+      page = Nokogiri::HTML(response)
+      return false if check_login? page #keim tra xem con dang login khong
+
+      myvillage.armies.create!(load_data page) unless Army.find_by my_village_id: myvillage.id
 
       # tao resource
       resources = dorf1.css("div#village_map div.level") # 18 mo
@@ -133,8 +143,8 @@ class UpdateDatabases
         @level = resources[n].text.split(/[^\d]/).join.to_i
         myvillage.resources.create! gid: @gid, level: @level, upgrade: @upgrade, link: @link
       end
-      #load het resource ngoai thanh
 
+      #load het resource ngoai thanh
       response = RestClient.get("http://ts19.travian.com.vn/dorf2.php" + href.value,
         cookies: {"T3E" => @cookies["T3E"], "lowRes" => "0", "sess_id" => @cookies["sess_id"]})
       dorf2 = Nokogiri::HTML(response)

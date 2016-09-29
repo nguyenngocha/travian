@@ -1,5 +1,9 @@
 <div>
-  <b>Lang: <%= my_village.name %>(<%= my_village.coordinate_x %>|<%= my_village.coordinate_y %>)</b>
+  <b>
+    Lang: <%= my_village.name %>(<%= my_village.coordinate_x %>|<%= my_village.coordinate_y %>)
+    Max kho: <%= my_village.max_warehouse %>
+    Max kho lua: <%= my_village.max_granary %>
+  </b>
   <table>
     <tr>
       <th>Go</th>
@@ -40,7 +44,7 @@
         <th>May nen</th>
         <th>May ban da</th>
         <th>Tu truong</th>
-        <th>DKH</th>
+        <th>Dan khai hoang</th>
         <th>Tuong</th>
         <% end %>
     </tr>

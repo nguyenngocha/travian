@@ -46,14 +46,16 @@ ActiveRecord::Schema.define(version: 20160923050532) do
     t.integer  "wood"
     t.integer  "clay"
     t.integer  "iron"
+    t.integer  "max_warehouse"
     t.integer  "crop"
+    t.integer  "max_granary"
     t.integer  "wood_quanity"
     t.integer  "clay_quanity"
     t.integer  "iron_quanity"
     t.integer  "crop_quanity"
     t.integer  "user_id"
-    t.datetime "created_at",   null: false
-    t.datetime "updated_at",   null: false
+    t.datetime "created_at",    null: false
+    t.datetime "updated_at",    null: false
     t.index ["user_id"], name: "index_my_villages_on_user_id"
   end
 

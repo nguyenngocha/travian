@@ -3,13 +3,13 @@ Rails.application.routes.draw do
 
   get 'sessions/new'
 
-  root 'static_pages#home'
+  # root 'static_pages#home'
 
   get "/login", to: "sessions#new"
 
-  post "/login", to: "sessions#create"
+  root "sessions#new"
 
-  get "/index", to: "static_pages#index"
+  post "/login", to: "sessions#create"
 
   resources :my_villages
   resources :lands
