@@ -1,10 +1,20 @@
 <tr>
-  <th><%= land.id %></th>
-  <th><%= land.type_id %></th>
+  <th><%= MyVillage.find_by_id(land.my_village_id).name %></th>
   <th><%= land.coordinate_x %></th>
   <th><%= land.coordinate_y %></th>
+  <td><%= land.army1 %></td>
+  <td><%= land.army2 %></td>
+  <td><%= land.army3 %></td>
+  <td><%= land.army4 %></td>
+  <td><%= land.army5 %></td>
+  <td><%= land.army6 %></td>
+  <td><%= land.army7 %></td>
+  <td><%= land.army8 %></td>
+  <td><%= land.army9 %></td>
+  <td><%= land.army10 %></td>
+  <td><%= land.army11 %></td>
   <th><%= link_to "Edit", edit_land_path(land),
     class: "warning" %></th>
   <th><%= link_to "Delete", land_path(land), method: :delete,
-    data: {confirm: t("admin.confirm_delete")}, class: "danger" %></th>
+    data: {confirm: "A iu sua"}, class: "danger" %></th>
 </tr>
