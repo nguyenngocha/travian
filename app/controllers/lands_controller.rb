@@ -1,5 +1,6 @@
 class LandsController < ApplicationController
   before_action :load_land, only: [:destroy, :edit, :update]
+  before_action :find_village
 
   def index
     @lands = Land.all
@@ -8,7 +9,7 @@ class LandsController < ApplicationController
   def new
     @land = Land.new
   end
-  
+
   def create
     @land = Land.new land_params
     if @land.save
@@ -26,12 +27,12 @@ class LandsController < ApplicationController
     else
       load_land
       render :edit
-    end 
+    end
   end
 
   def destroy
     if @land.destroy
-      flass[:success] = "delete land success"
+      flash[:success] = "Delete land success"
       redirect_to lands_path
     end
   end
@@ -46,6 +47,12 @@ class LandsController < ApplicationController
   end
 
   def land_params
-    params.require(:land).permit :type_id, :coordinate_x, :coordinate_y
+    params.require(:land).permit :coordinate_x, :coordinate_y, :army1,
+      :army2, :army3, :army4, :army5, :army6, :army7, :army8, :army9, :army10,
+      :army11, :my_village_id
+  end
+
+  def find_village
+    @my_villages = current_user.my_villages
   end
 end

@@ -4,69 +4,67 @@
     Max kho: <%= my_village.max_warehouse %>
     Max kho lua: <%= my_village.max_granary %>
   </b>
-  <table>
-    <tr>
-      <th>Go</th>
-      <th>Dat Set</th>
-      <th>Sat</th>
-      <th>Lua</th>
-      <% if current_user.romans? %>
-        <th>Linh le duong</th>
-        <th>Thi ve</th>
-        <th>Chien binh tinh nhue</th>
-        <th>Ky binh do tham</th>
-        <th>Ky binh</th>
-        <th>Ky binh tinh nhue</th>
-        <th>Xe cong thanh</th>
-        <th>May phong lua</th>
-        <th>Nguyen lao</th>
-        <th>Dan khai hoang</th>
-        <th>Tuong</th>
-      <% elsif current_user.teutons? %>
-        <th>Linh chuy</th>
-        <th>Linh giao</th>
-        <th>Linh riu</th>
-        <th>Do tham</th>
-        <th>Hiep si Paladin</th>
-        <th>Kiep si Teutonic</th>
-        <th>Doi cong thanh</th>
-        <th>May ban da</th>
-        <th>Thu linh</th>
-        <th>Dan khai hoang</th>
-        <th>Tuong</th>
-      <% elsif current_user.gauls? %>
-        <th>Linh pha lang</th>
-        <th>Kiem si</th>
-        <th>Do tham</th>
-        <th>Ky binh sam set</th>
-        <th>Tu si</th>
-        <th>Ky binh</th>
-        <th>May nen</th>
-        <th>May ban da</th>
-        <th>Tu truong</th>
-        <th>Dan khai hoang</th>
-        <th>Tuong</th>
+  <table class="table">
+    <thead>
+      <tr>
+        <th>Go</th>
+        <th>Dat Set</th>
+        <th>Sat</th>
+        <th>Lua</th>
+        <% if current_user.romans? %>
+          <th>Linh le duong</th>
+          <th>Thi ve</th>
+          <th>Chien binh tinh nhue</th>
+          <th>Ky binh do tham</th>
+          <th>Ky binh</th>
+          <th>Ky binh tinh nhue</th>
+          <th>Xe cong thanh</th>
+          <th>May phong lua</th>
+          <th>Nguyen lao</th>
+        <% elsif current_user.teutons? %>
+          <th>Linh chuy</th>
+          <th>Linh giao</th>
+          <th>Linh riu</th>
+          <th>Do tham</th>
+          <th>Hiep si Paladin</th>
+          <th>Kiep si Teutonic</th>
+          <th>Doi cong thanh</th>
+          <th>May ban da</th>
+          <th>Thu linh</th>
+        <% elsif current_user.gauls? %>
+          <th>Linh pha lang</th>
+          <th>Kiem si</th>
+          <th>Do tham</th>
+          <th>Ky binh sam set</th>
+          <th>Tu si</th>
+          <th>Ky binh</th>
+          <th>May nen</th>
+          <th>May ban da</th>
+          <th>Tu truong</th>
         <% end %>
-    </tr>
-    <tr>
-      <td><%= my_village.wood %></td>
-      <td><%= my_village.clay %></td>
-      <td><%= my_village.iron %></td>
-      <td><%= my_village.crop %></td>
-      <% my_village.armies.each do |army|%>
-        <td><%= army.army1 %></td>
-        <td><%= army.army2 %></td>
-        <td><%= army.army3 %></td>
-        <td><%= army.army4 %></td>
-        <td><%= army.army5 %></td>
-        <td><%= army.army6 %></td>
-        <td><%= army.army7 %></td>
-        <td><%= army.army8 %></td>
-        <td><%= army.army9 %></td>
-        <td><%= army.army10 %></td>
-        <td><%= army.army11 %></td>
-      <% end %>
-    </tr>
+        <th>Dan khai hoang</th>
+        <th>Tuong</th>
+      </tr>
+      <tr>
+        <td><%= my_village.wood %></td>
+        <td><%= my_village.clay %></td>
+        <td><%= my_village.iron %></td>
+        <td><%= my_village.crop %></td>
+        <% my_village.armies.each do |army|%>
+          <td><%= army.army1 %></td>
+          <td><%= army.army2 %></td>
+          <td><%= army.army3 %></td>
+          <td><%= army.army4 %></td>
+          <td><%= army.army5 %></td>
+          <td><%= army.army6 %></td>
+          <td><%= army.army7 %></td>
+          <td><%= army.army8 %></td>
+          <td><%= army.army9 %></td>
+          <td><%= army.army10 %></td>
+          <td><%= army.army11 %></td>
+        <% end %>
+      </tr>
+    </thead>
     <tr>
       <td><%= my_village.wood_quanity %></td>
       <td><%= my_village.clay_quanity %></td>

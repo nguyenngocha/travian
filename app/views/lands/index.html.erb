@@ -1,22 +1,54 @@
-<%= provide :title, t("Lands") %>
+<%= provide :title, t("Farm List") %>
 
-<h1><%= t "Lands" %></h1>
+<h1><%= t "Farm List" %></h1>
 <%= link_to new_land_path do %>
   <div class="btn btn-success">
     <%= "Add" %>
     <i class="glyphicon glyphicon-plus"></i>
   </div>
 <% end %>
+<%= link_to "Home", my_villages_path, class: "btn btn-primary" %>
 <br/ >
 <br/ >
 <table class="table">
   <thead>
     <tr>
-      <th></th>
-      <th><%= "Type" %>
-        <i class="glyphicon glyphicon-equalizer"></i></th>
-      <th><%= "Coordinate X" %></th>
-      <th><%= "coordinate Y" %></th>
+      <th><%= "Lang" %></th>
+      <th><%= "X" %></th>
+      <th><%= "Y" %></th>
+      <% if current_user.romans? %>
+        <th>Linh le duong</th>
+        <th>Thi ve</th>
+        <th>Chien binh tinh nhue</th>
+        <th>Ky binh do tham</th>
+        <th>Ky binh</th>
+        <th>Ky binh tinh nhue</th>
+        <th>Xe cong thanh</th>
+        <th>May phong lua</th>
+        <th>Nguyen lao</th>
+      <% elsif current_user.teutons? %>
+        <th>Linh chuy</th>
+        <th>Linh giao</th>
+        <th>Linh riu</th>
+        <th>Do tham</th>
+        <th>Hiep si Paladin</th>
+        <th>Kiep si Teutonic</th>
+        <th>Doi cong thanh</th>
+        <th>May ban da</th>
+        <th>Thu linh</th>
+      <% elsif current_user.gauls? %>
+        <th>Linh pha lang</th>
+        <th>Kiem si</th>
+        <th>Do tham</th>
+        <th>Ky binh sam set</th>
+        <th>Tu si</th>
+        <th>Ky binh</th>
+        <th>May nen</th>
+        <th>May ban da</th>
+        <th>Tu truong</th>
+      <% end %>
+      <th>Dan khai hoang</th>
+      <th>Tuong</th>
       <th><i class="glyphicon glyphicon-wrench"></i></th>
       <th><i class="glyphicon glyphicon-trash"></i></th>
     </tr>
