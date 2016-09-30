@@ -1,9 +1,9 @@
 Rails.application.routes.draw do
-  get 'my_villages/index'
+  get "my_villages/index"
 
-  get 'sessions/new'
+  get "sessions/new"
 
-  # root 'static_pages#home'
+  get "/checkip", to: "static_pages#home"
 
   get "/login", to: "sessions#new"
 
