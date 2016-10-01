@@ -1,5 +1,5 @@
 class UpdateDatabases
-  require 'nokogiri'
+  require "nokogiri"
   require "rest-client"
 
   def initialize page, cookies
@@ -48,6 +48,7 @@ class UpdateDatabases
     # update army
     response = RestClient.get("http://ts19.travian.com.vn/build.php?id=39&tt=1" + href.value,
       cookies: {"T3E" => @cookies["T3E"], "lowRes" => "0", "sess_id" => @cookies["sess_id"]})
+
     page = Nokogiri::HTML(response)
     return false if check_login? page #keim tra xem con dang login khong
 
@@ -104,6 +105,8 @@ class UpdateDatabases
   end
 
   def create_my_village dorf1, user, href
+    write_log dorf1
+
     myvillage = user.my_villages.create! name: dorf1.css("div#villageNameField").text, link: href.value,
       coordinate_x: dorf1.css("a[href = '#{href.value}'] span.coordinateX").text.split(/[^\d, -]/).join.to_i,
       coordinate_y: dorf1.css("a[href = '#{href.value}'] span.coordinateY").text.split(/[^\d, -]/).join.to_i,
@@ -117,7 +120,7 @@ class UpdateDatabases
       clay_quanity: dorf1.css("table#production td.num")[1].text.split(/[^\d]/).join.to_i,
       iron_quanity: dorf1.css("table#production td.num")[2].text.split(/[^\d]/).join.to_i,
       crop_quanity: dorf1.css("table#production td.num")[3].text.split(/[^\d]/).join.to_i
-
+    
     if myvillage
 
       # tao army
@@ -199,5 +202,10 @@ class UpdateDatabases
       load_my_village user
       # tao moi 1 user
     end
+  end
+  private
+  def write_log response
+    fptr = File.open "/home/ngocha/log.html", "w"
+    fptr.puts response
   end
 end

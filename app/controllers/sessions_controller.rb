@@ -18,7 +18,8 @@ class SessionsController < ApplicationController
       elsif @page.css("div.playerName img.nation3").present?
         2
       end
-      current_cookies response.cookies
+      set_cookies response.cookies
+      get_cookies
       UpdateDatabases.new(@page, @cookies).load_user(params[:session][:name],
         params[:session][:password], race)
       log_in User.find_by name: params[:session][:name]
