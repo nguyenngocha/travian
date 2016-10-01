@@ -23,7 +23,7 @@ class SessionsController < ApplicationController
       UpdateDatabases.new(@page, @cookies).load_user(params[:session][:name],
         params[:session][:password], race)
       log_in User.find_by name: params[:session][:name]
-      redirect_to my_villages_path
+      redirect_to farms_path
     end
   end
 end
