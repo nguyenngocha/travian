@@ -13,6 +13,7 @@ Rails.application.routes.draw do
 
   resources :my_villages
   resources :lands
+  resources :farms
 
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
 end

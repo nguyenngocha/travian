@@ -33,20 +33,20 @@ ActiveRecord::Schema.define(version: 20160923050532) do
   create_table "lands", force: :cascade do |t|
     t.integer  "coordinate_x"
     t.integer  "coordinate_y"
-    t.integer  "army1"
-    t.integer  "army2"
-    t.integer  "army3"
-    t.integer  "army4"
-    t.integer  "army5"
-    t.integer  "army6"
-    t.integer  "army7"
-    t.integer  "army8"
-    t.integer  "army9"
-    t.integer  "army10"
-    t.integer  "army11"
+    t.integer  "army1",         default: 0
+    t.integer  "army2",         default: 0
+    t.integer  "army3",         default: 0
+    t.integer  "army4",         default: 0
+    t.integer  "army5",         default: 0
+    t.integer  "army6",         default: 0
+    t.integer  "army7",         default: 0
+    t.integer  "army8",         default: 0
+    t.integer  "army9",         default: 0
+    t.integer  "army10",        default: 0
+    t.integer  "army11",        default: 0
     t.integer  "my_village_id"
-    t.datetime "created_at",    null: false
-    t.datetime "updated_at",    null: false
+    t.datetime "created_at",                null: false
+    t.datetime "updated_at",                null: false
     t.index ["my_village_id"], name: "index_lands_on_my_village_id"
   end
 
