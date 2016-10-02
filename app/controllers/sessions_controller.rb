@@ -6,7 +6,7 @@ class SessionsController < ApplicationController
     response = RestClient.post "http://ts19.travian.com.vn/dorf1.php",
       {name: params[:session][:name], password: params[:session][:password],
       s1: "Đăng+nhập", w: "1366:768", login: "1474387509", lowRes: "0"}
-    @page = Nokogiri::HTML(response)
+    @page = Nokogiri::HTML response
     if @page.css("div#header ul#navigation").empty?
       flash[:danger] = "Dang nhap loi"
       redirect_to login_path
@@ -23,7 +23,13 @@ class SessionsController < ApplicationController
       UpdateDatabases.new(@page, @cookies).load_user(params[:session][:name],
         params[:session][:password], race)
       log_in User.find_by name: params[:session][:name]
-      redirect_to farms_path
+      redirect_to my_villages_path
     end
+  end
+
+  def destroy
+    RestClient.get "http://ts19.travian.com.vn/logout.php"
+    log_out if logged_in?
+    redirect_to root_url
   end
 end

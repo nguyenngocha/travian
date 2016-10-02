@@ -12,4 +12,13 @@ class Land < ApplicationRecord
   validates :army9, presence: true
   validates :army10, presence: true
   validates :army11, presence: true
+
+  before_save :calculate_distance
+
+  scope :order_by_distance,-> {order my_village_id: :asc, distance: :asc}
+
+  def calculate_distance
+    current_village = MyVillage.find_by id: my_village_id
+    self.distance = (Math.sqrt((current_village.coordinate_x - coordinate_x).abs**2 + (current_village.coordinate_y - coordinate_y).abs**2)).round(1)
+  end
 end

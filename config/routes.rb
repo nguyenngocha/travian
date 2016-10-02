@@ -1,15 +1,14 @@
 Rails.application.routes.draw do
-  get "my_villages/index"
-
-  get "sessions/new"
 
   get "/checkip", to: "static_pages#home"
 
-  get "/login", to: "sessions#new"
-
   root "sessions#new"
 
+  get "/login", to: "sessions#new"
+
   post "/login", to: "sessions#create"
+
+  delete "/logout",  to: 'sessions#destroy'
 
   get "/farm_list", to: "farm_lists#start"
 

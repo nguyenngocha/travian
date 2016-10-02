@@ -203,9 +203,4 @@ class UpdateDatabases
       # tao moi 1 user
     end
   end
-  # private
-  # def write_log response
-  #   fptr = File.open "/home/ngocha/log.html", "w"
-  #   fptr.puts response
-  # end
 end

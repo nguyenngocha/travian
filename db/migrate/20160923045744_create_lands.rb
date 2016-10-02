@@ -3,6 +3,7 @@ class CreateLands < ActiveRecord::Migration[5.0]
     create_table :lands do |t|
       t.integer :coordinate_x
       t.integer :coordinate_y
+      t.float :distance
       t.integer :army1, default: 0, nil: false
       t.integer :army2, default: 0, nil: false
       t.integer :army3, default: 0, nil: false

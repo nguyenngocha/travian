@@ -33,6 +33,7 @@ ActiveRecord::Schema.define(version: 20160923050532) do
   create_table "lands", force: :cascade do |t|
     t.integer  "coordinate_x"
     t.integer  "coordinate_y"
+    t.float    "distance"
     t.integer  "army1",         default: 0
     t.integer  "army2",         default: 0
     t.integer  "army3",         default: 0

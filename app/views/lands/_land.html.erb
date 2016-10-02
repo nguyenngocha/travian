@@ -2,17 +2,18 @@
   <th><%= MyVillage.find_by_id(land.my_village_id).name %></th>
   <th><%= land.coordinate_x %></th>
   <th><%= land.coordinate_y %></th>
-  <td><%= land.army1 %></td>
-  <td><%= land.army2 %></td>
-  <td><%= land.army3 %></td>
-  <td><%= land.army4 %></td>
-  <td><%= land.army5 %></td>
-  <td><%= land.army6 %></td>
-  <td><%= land.army7 %></td>
-  <td><%= land.army8 %></td>
-  <td><%= land.army9 %></td>
-  <td><%= land.army10 %></td>
-  <td><%= land.army11 %></td>
+  <th><%= land.distance %></th>
+  <td><%= land.army1 == 0 ? "" : land.army1 %></td>
+  <td><%= land.army2 == 0 ? "" : land.army2 %></td>
+  <td><%= land.army3 == 0 ? "" : land.army3 %></td>
+  <td><%= land.army4 == 0 ? "" : land.army4 %></td>
+  <td><%= land.army5 == 0 ? "" : land.army5 %></td>
+  <td><%= land.army6 == 0 ? "" : land.army6 %></td>
+  <td><%= land.army7 == 0 ? "" : land.army7 %></td>
+  <td><%= land.army8 == 0 ? "" : land.army8 %></td>
+  <td><%= land.army9 == 0 ? "" : land.army9 %></td>
+  <td><%= land.army10 == 0 ? "" : land.army10 %></td>
+  <td><%= land.army11 == 0 ? "" : land.army11 %></td>
   <th><%= link_to "Edit", edit_land_path(land),
     class: "warning" %></th>
   <th><%= link_to "Delete", land_path(land), method: :delete,
