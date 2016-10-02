@@ -45,9 +45,11 @@ ActiveRecord::Schema.define(version: 20160923050532) do
     t.integer  "army10",        default: 0
     t.integer  "army11",        default: 0
     t.integer  "my_village_id"
+    t.integer  "user_id"
     t.datetime "created_at",                null: false
     t.datetime "updated_at",                null: false
     t.index ["my_village_id"], name: "index_lands_on_my_village_id"
+    t.index ["user_id"], name: "index_lands_on_user_id"
   end
 
   create_table "my_villages", force: :cascade do |t|

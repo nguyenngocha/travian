@@ -11,6 +11,8 @@ Rails.application.routes.draw do
 
   post "/login", to: "sessions#create"
 
+  get "/farm_list", to: "farm_lists#start"
+
   resources :my_villages
   resources :lands
   resources :farms

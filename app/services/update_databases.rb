@@ -105,7 +105,7 @@ class UpdateDatabases
   end
 
   def create_my_village dorf1, user, href
-    write_log dorf1
+    # write_log dorf1
 
     myvillage = user.my_villages.create! name: dorf1.css("div#villageNameField").text, link: href.value,
       coordinate_x: dorf1.css("a[href = '#{href.value}'] span.coordinateX").text.split(/[^\d, -]/).join.to_i,
@@ -120,7 +120,7 @@ class UpdateDatabases
       clay_quanity: dorf1.css("table#production td.num")[1].text.split(/[^\d]/).join.to_i,
       iron_quanity: dorf1.css("table#production td.num")[2].text.split(/[^\d]/).join.to_i,
       crop_quanity: dorf1.css("table#production td.num")[3].text.split(/[^\d]/).join.to_i
-    
+
     if myvillage
 
       # tao army
@@ -203,9 +203,9 @@ class UpdateDatabases
       # tao moi 1 user
     end
   end
-  private
-  def write_log response
-    fptr = File.open "/home/ngocha/log.html", "w"
-    fptr.puts response
-  end
+  # private
+  # def write_log response
+  #   fptr = File.open "/home/ngocha/log.html", "w"
+  #   fptr.puts response
+  # end
 end

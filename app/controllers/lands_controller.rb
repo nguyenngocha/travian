@@ -3,15 +3,15 @@ class LandsController < ApplicationController
   before_action :find_village
 
   def index
-    @lands = Land.all
+    @lands = current_user.lands
   end
 
   def new
-    @land = Land.new
+    @land = current_user.lands.new
   end
 
   def create
-    @land = Land.new land_params
+    @land = current_user.lands.new land_params
     if @land.save
       flash[:success] = "Add land success!"
       redirect_to lands_path
