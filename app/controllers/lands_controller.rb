@@ -1,9 +1,10 @@
 class LandsController < ApplicationController
+  before_action :logged_in_user
   before_action :load_land, only: [:destroy, :edit, :update]
   before_action :find_village
 
   def index
-    @lands = current_user.lands
+    @lands = current_user.lands.order_by_distance
   end
 
   def new

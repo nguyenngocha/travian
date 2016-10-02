@@ -9,18 +9,13 @@
   </head>
 
   <body>
-    <% if @cookies %>
-      <% flash.each do |message_type, message| %>
-        <div class="alert alert-<%= message_type %>"><%= message %></div>
-      <% end %>
-      <div class="col-md-4">
-        <%= render "layouts/side_bar" %>
-      </div>
-      <div class="col-md-8">
-        <%= yield %>
-      </div> 
-    <% else %>
-      <%= yield %>
+    <% flash.each do |message_type, message| %>
+      <div class="alert alert-<%= message_type %> td-body"><%= message %></div>
     <% end %>
+    <%= render "layouts/header" %>
+    <div class="container td-body">
+      <%= yield %>
+    </div>
+
   </body>
 </html>

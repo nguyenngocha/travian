@@ -1,14 +1,15 @@
-<%= link_to "Check IP", checkip_path, class: "btn btn-danger" %>
+<h1>login</h1>
+<div class="row">
+  <div class="col-md-6 col-md-offset-3">
+    <%= form_for :session, url: login_path do |f| %>
 
-<h1> <%= "login" %> </h1>
+      <%= f.label :TaiKhoan %>
+      <%= f.text_field :name, value: "hatd", class: "form-control" %>
 
-  <%= form_for :session, url: login_path do |f| %>
+      <%= f.label :MatKhau %>
+      <%= f.password_field :password, value: "Trandahanh(9", class: "form-control" %>
 
-    <%= f.label :TaiKhoan %>
-    <%= f.text_field :name, value: "hatd", class: "form-control" %>
-
-    <%= f.label :MatKhau %>
-    <%= f.password_field :password, value: "Trandahanh(9", class: "form-control" %>
-
-    <%= f.submit "Login", class: "btn btn-primary" %>
-  <% end %>
+      <%= f.submit "Login", class: "btn btn-primary" %>
+    <% end %>
+  </div>
+</div>

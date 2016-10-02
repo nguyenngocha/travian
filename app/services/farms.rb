@@ -8,13 +8,9 @@ class Farms
     @land = land
   end
 
-  def check_login? page
-    page.css("div#header ul#navigation").empty?
-  end
-
   def check_number_army?
     sleep 1
-    # gui request vao trang "gui linh" de check so luong linh
+    # gui request 1, vao trang "gui linh" de check so luong linh
     response = RestClient.get("http://ts19.travian.com.vn/build.php" + @myvillage.link + "id=39&tt=2&gid=16",
       cookies: @cookies)
     @page = Nokogiri::HTML(response)
@@ -40,6 +36,8 @@ class Farms
 
   def send_request
     if check_number_army?
+      sleep 1
+      # gui request2, vao trang "xac nhan"
       response = RestClient.post("http://ts19.travian.com.vn/build.php?id=39&tt=2",
         {timestamp: @timestamp, timestamp_checksum: @timestamp_checksum,
         b: @b, currentDid: @myvillage.link.split(/[^\d]/).join, t1: @land.army1.to_s,
@@ -49,8 +47,9 @@ class Farms
         y: @land.coordinate_y.to_s, c: "4", s1: "ok"}, cookies: @cookies)
       @page = Nokogiri::HTML(response)
 
-      if @page.css("p.error").empty? #gui request co loi
+      if !@page.css("table#short_info").empty? #gui request 2 thanh coong
         sleep 1
+        # gui request "xac nhan"
         response = RestClient.post("http://ts19.travian.com.vn/build.php?id=39&tt=2",
           {redeployHero: @page.css("input[name='redeployHero'] @value").text,
           timestamp: @page.css("input[name='timestamp'] @value").text,
@@ -88,11 +87,5 @@ class Farms
     else
       return false
     end
-  end
-
-  private
-  def write_log response
-    fptr = File.open "/home/ngocha/log.html", "w"
-    fptr.puts response
   end
 end

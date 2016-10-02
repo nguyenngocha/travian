@@ -7,8 +7,12 @@
     <i class="glyphicon glyphicon-plus"></i>
   </div>
 <% end %>
-<%= link_to "Home", my_villages_path, class: "btn btn-primary" %>
-<%= link_to "Farm", farms_path, class: "btn btn-info" %>
+<%= link_to farms_path, data: {confirm: "Bat dau!!"} do %>
+  <div class="btn btn-info">
+    <%= "Start" %>
+    <i class="glyphicon glyphicon-play-circle"></i>
+  </div>
+<% end %>
 <br/ >
 <br/ >
 <table class="table">
@@ -17,6 +21,7 @@
       <th><%= "Lang" %></th>
       <th><%= "X" %></th>
       <th><%= "Y" %></th>
+      <th><%= "Distance" %></th>
       <% if current_user.romans? %>
         <th>Linh le duong</th>
         <th>Thi ve</th>
