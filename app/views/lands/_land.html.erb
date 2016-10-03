@@ -2,7 +2,10 @@
   <th><%= MyVillage.find_by_id(land.my_village_id).name %></th>
   <th><%= land.coordinate_x %></th>
   <th><%= land.coordinate_y %></th>
-  <th><%= land.distance %></th>
+  <th>
+    <a href="http://ts19.travian.com.vn/position_details.php<%= MyVillage.find_by_id(land.my_village_id).link %>x=<%= land.coordinate_x %>&y=<%= land.coordinate_y %>"><%= land.distance %>
+    </a>
+  </th>
   <td><%= land.army1 == 0 ? "" : land.army1 %></td>
   <td><%= land.army2 == 0 ? "" : land.army2 %></td>
   <td><%= land.army3 == 0 ? "" : land.army3 %></td>

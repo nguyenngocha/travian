@@ -1,18 +1,20 @@
 <%= provide :title, t("Farm List") %>
 
-<h1><%= t "Farm List" %></h1>
-<%= link_to new_land_path do %>
-  <div class="btn btn-success">
-    <%= "Add" %>
-    <i class="glyphicon glyphicon-plus"></i>
-  </div>
-<% end %>
-<%= link_to farms_path, data: {confirm: "Bat dau!!"} do %>
-  <div class="btn btn-info">
-    <%= "Start" %>
-    <i class="glyphicon glyphicon-play-circle"></i>
-  </div>
-<% end %>
+<div class:"div-head">
+  <h1><%= t "Farm List" %></h1>
+  <%= link_to new_land_path do %>
+    <div class="btn btn-success">
+      <%= "Add" %>
+      <i class="glyphicon glyphicon-plus"></i>
+    </div>
+  <% end %>
+  <%= link_to farms_path, data: {confirm: "Bat dau!!"} do %>
+    <div class="btn btn-info">
+      <%= "Start" %>
+      <i class="glyphicon glyphicon-play-circle"></i>
+    </div>
+  <% end %>
+</div>
 <br/ >
 <br/ >
 <table class="table">
