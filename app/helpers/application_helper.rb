@@ -1,4 +1,3 @@
 module ApplicationHelper
-    include SessionsHelper
-
+  include SessionsHelper
 end
