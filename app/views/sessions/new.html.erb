@@ -4,10 +4,10 @@
     <%= form_for :session, url: login_path do |f| %>
 
       <%= f.label :TaiKhoan %>
-      <%= f.text_field :name, value: "hatd", class: "form-control" %>
+      <%= f.text_field :name, class: "form-control" %>
 
       <%= f.label :MatKhau %>
-      <%= f.password_field :password, value: "Trandahanh(9", class: "form-control" %>
+      <%= f.password_field :password, class: "form-control" %>
 
       <%= f.submit "Login", class: "btn btn-primary" %>
     <% end %>

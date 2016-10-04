@@ -15,7 +15,8 @@ class Land < ApplicationRecord
 
   before_save :calculate_distance
 
-  scope :order_by_distance,-> {order my_village_id: :asc, distance: :asc}
+  scope :order_by_distance,-> {order distance: :asc}
+  scope :order_by_village,-> {order my_village_id: :asc}
 
   def calculate_distance
     current_village = MyVillage.find_by id: my_village_id
