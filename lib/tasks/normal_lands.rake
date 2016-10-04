@@ -26,7 +26,7 @@ namespace :db do
       army1: 0, army2: 0, army3: 0, army4: 30, army5: 0, army6: 0, army7: 0,
       army8: 0, army9: 0, army10: 0, army11: 0, my_village_id: 2, user_id: 1
     Land.create! coordinate_x: -42, coordinate_y: -2,
-      army1: 0, army2: 0, army3: 0, army4: 20, army5: 0, army6: 0, army7: 0,
+      army1: 0, army2: 0, army3: 0, army4: 10, army5: 0, army6: 0, army7: 0,
       army8: 0, army9: 0, army10: 0, army11: 0, my_village_id: 2, user_id: 1
     Land.create! coordinate_x: -42, coordinate_y: 5,
       army1: 0, army2: 0, army3: 0, army4: 20, army5: 0, army6: 0, army7: 0,
@@ -79,7 +79,7 @@ namespace :db do
       army1: 0, army2: 0, army3: 0, army4: 10, army5: 0, army6: 0, army7: 0,
       army8: 0, army9: 0, army10: 0, army11: 0, my_village_id: 1, user_id: 1
     Land.create! coordinate_x: -27, coordinate_y: -12,
-      army1: 0, army2: 0, army3: 0, army4: 20, army5: 0, army6: 0, army7: 0,
+      army1: 0, army2: 0, army3: 0, army4: 10, army5: 0, army6: 0, army7: 0,
       army8: 0, army9: 0, army10: 0, army11: 0, my_village_id: 1, user_id: 1
     Land.create! coordinate_x: -32, coordinate_y: -15,
       army1: 0, army2: 0, army3: 0, army4: 10, army5: 0, army6: 0, army7: 0,
@@ -94,7 +94,7 @@ namespace :db do
       army1: 0, army2: 0, army3: 0, army4: 50, army5: 0, army6: 0, army7: 0,
       army8: 0, army9: 0, army10: 0, army11: 0, my_village_id: 1, user_id: 1
     Land.create! coordinate_x: -32, coordinate_y: 19,
-      army1: 0, army2: 0, army3: 0, army4: 50, army5: 0, army6: 0, army7: 0,
+      army1: 0, army2: 0, army3: 0, army4: 10, army5: 0, army6: 0, army7: 0,
       army8: 0, army9: 0, army10: 0, army11: 0, my_village_id: 1, user_id: 1
     Land.create! coordinate_x: -25, coordinate_y: 13,
       army1: 0, army2: 0, army3: 0, army4: 10, army5: 0, army6: 0, army7: 0,
@@ -118,7 +118,7 @@ namespace :db do
       army1: 0, army2: 0, army3: 0, army4: 20, army5: 0, army6: 0, army7: 0,
       army8: 0, army9: 0, army10: 0, army11: 0, my_village_id: 1, user_id: 1
     Land.create! coordinate_x: -20, coordinate_y: 25,
-      army1: 0, army2: 0, army3: 0, army4: 20, army5: 0, army6: 0, army7: 0,
+      army1: 0, army2: 0, army3: 0, army4: 10, army5: 0, army6: 0, army7: 0,
       army8: 0, army9: 0, army10: 0, army11: 0, my_village_id: 1, user_id: 1
     Land.create! coordinate_x: -10, coordinate_y: 6,
       army1: 0, army2: 0, army3: 0, army4: 20, army5: 0, army6: 0, army7: 0,
