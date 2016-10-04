@@ -1,4 +1,4 @@
-set :output, "/home/o-o/log.log"
+set :output, "/home/ubuntu/log.log"
 
 every 10.minutes do
   rake "job:farm_all"

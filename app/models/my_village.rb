@@ -13,8 +13,6 @@ class MyVillage < ApplicationRecord
       break unless farm_for_land land, cookies
       sleep(3)
     end
-    puts ""
-    puts "#{Time.now.strftime("%Y-%m-%d %H:%M:%S")} :"
   end
   def farm_for_land land, cookies
     if Farms.new(cookies, self, land).send_request
