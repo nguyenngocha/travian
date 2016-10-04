@@ -10,8 +10,6 @@ Rails.application.routes.draw do
 
   delete "/logout",  to: 'sessions#destroy'
 
-  get "/farm_list", to: "farm_lists#start"
-
   resources :my_villages
   resources :lands
   resources :farms

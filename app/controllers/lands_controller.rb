@@ -4,7 +4,7 @@ class LandsController < ApplicationController
   before_action :find_village
 
   def index
-    @lands = current_user.lands.order_by_distance
+    @lands = current_user.lands.order_by_village.order_by_distance
   end
 
   def new
