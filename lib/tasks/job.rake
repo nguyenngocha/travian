@@ -8,6 +8,7 @@ namespace :job do
       s1: "Đăng+nhập", w: "1366:768", login: "1475511974", lowRes: "0"}
 
     MyVillage.all.each do |my_village|
+      puts "#{my_village.name}: "
       my_village.farm_for_village response.cookies
     end
   end

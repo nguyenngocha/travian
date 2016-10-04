@@ -25,6 +25,7 @@ class Farms
       @land.army8 > @current_armies[6].css("a[href= '#']").text.to_i ||
       @land.army9 > @current_armies[3].css("a[href= '#']").text.to_i ||
       @land.army10 > @current_armies[7].css("a[href= '#']").text.to_i
+      puts "het linh"
       false
     else
       @timestamp = page.css("input[name='timestamp'] @value").text
@@ -46,7 +47,6 @@ class Farms
         t10: @land.army10.to_s, t11: @land.army11.to_s, dname: "", x: @land.coordinate_x.to_s,
         y: @land.coordinate_y.to_s, c: "4", s1: "ok"}, cookies: @cookies)
       page = Nokogiri::HTML response1
-
       if !page.css("table#short_info").empty? #gui request 2 thanh coong
         sleep 1
         # gui request "xac nhan"
@@ -81,8 +81,12 @@ class Farms
             end
           }
         return true
-      else
-        return false
+      elsif !page.css("p.error").empty? && (page.css("p.error").text == "làng của tướng đã được thay đổi." ||
+        page.css("p.error").text == "Không có làng nào ở tọa độ này" ||
+        page.css("p.error").text == "Bạn chưa lựa chọn quân nào cả")
+        @land.update_attributes! my_village_id: nil, user_id: nil
+        puts "#{@land.coordinate_x}|#{@land.coordinate_y} vung dat bo hoang"
+        return true
       end
     else
       return false

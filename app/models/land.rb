@@ -19,7 +19,9 @@ class Land < ApplicationRecord
   scope :order_by_village,-> {order my_village_id: :asc}
 
   def calculate_distance
-    current_village = MyVillage.find_by id: my_village_id
-    self.distance = (Math.sqrt((current_village.coordinate_x - coordinate_x).abs**2 + (current_village.coordinate_y - coordinate_y).abs**2)).round(1)
+    unless my_village_id.nil?
+      current_village = MyVillage.find_by id: my_village_id
+      self.distance = (Math.sqrt((current_village.coordinate_x - coordinate_x).abs**2 + (current_village.coordinate_y - coordinate_y).abs**2)).round(1)
+    end
   end
 end
