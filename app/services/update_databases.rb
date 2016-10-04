@@ -46,7 +46,7 @@ class UpdateDatabases
       crop_quanity: dorf1.css("table#production td.num")[3].text.split(/[^\d]/).join.to_i
 
     # update army
-    response = RestClient.get("http://ts19.travian.com.vn/build.php?id=39&tt=1" + href.value,
+    response = RestClient.get("http://ts19.travian.com.vn/build.php" + href.value + "id=39&tt=1",
       cookies: {"T3E" => @cookies["T3E"], "lowRes" => "0", "sess_id" => @cookies["sess_id"]})
 
     page = Nokogiri::HTML(response)
@@ -124,7 +124,7 @@ class UpdateDatabases
     if myvillage
 
       # tao army
-      response = RestClient.get("http://ts19.travian.com.vn/build.php?id=39&tt=1" + href.value,
+      response = RestClient.get("http://ts19.travian.com.vn/build.php" + href.value + "id=39&tt=1",
         cookies: {"T3E" => @cookies["T3E"], "lowRes" => "0", "sess_id" => @cookies["sess_id"]})
       page = Nokogiri::HTML(response)
       return false if check_login? page #keim tra xem con dang login khong
