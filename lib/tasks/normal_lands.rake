@@ -22,9 +22,6 @@ namespace :db do
     Land.create! coordinate_x: -52, coordinate_y: 1,
       army1: 0, army2: 0, army3: 0, army4: 20, army5: 0, army6: 0, army7: 0,
       army8: 0, army9: 0, army10: 0, army11: 0, my_village_id: 2, user_id: 1
-    Land.create! coordinate_x: -50, coordinate_y: -2,
-      army1: 0, army2: 0, army3: 0, army4: 30, army5: 0, army6: 0, army7: 0,
-      army8: 0, army9: 0, army10: 0, army11: 0, my_village_id: 2, user_id: 1
     Land.create! coordinate_x: -42, coordinate_y: -2,
       army1: 0, army2: 0, army3: 0, army4: 10, army5: 0, army6: 0, army7: 0,
       army8: 0, army9: 0, army10: 0, army11: 0, my_village_id: 2, user_id: 1
