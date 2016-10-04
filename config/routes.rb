@@ -10,6 +10,10 @@ Rails.application.routes.draw do
 
   delete "/logout",  to: 'sessions#destroy'
 
+  get "/start", to: "static_pages#start"
+
+  get "/stop", to: "static_pages#stop"
+
   resources :my_villages
   resources :lands
   resources :farms
