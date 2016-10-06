@@ -18,7 +18,7 @@ namespace :job do
       login = logout_page.css("input[name='login'] @value").text
       puts "loi dnag nhap"
       @login_res = RestClient.post "http://ts19.travian.com.vn/dorf1.php",
-        {name: "hatd", password: "Trandahanh(9",
+        {name: "farm", password: "1234",
         s1: "Đăng+nhập", w: "1366:768", login: login, lowRes: "0"}
       if @login_res.cookies
         user.update_attributes! t3e: @login_res.cookies["T3E"], sess_id: @login_res.cookies["sess_id"]

@@ -9,7 +9,7 @@ class Farms
   end
 
   def check_number_army?
-    sleep 1
+    sleep(0.5 + rand*0.5)
     # gui request 1, vao trang "gui linh" de check so luong linh
     response = RestClient.get("http://ts19.travian.com.vn/build.php" + @myvillage.link + "id=39&tt=2&gid=16",
       cookies: @cookies)
@@ -37,7 +37,7 @@ class Farms
 
   def send_request
     if check_number_army?
-      sleep 1
+      sleep(0.5 + rand*0.5)
       # gui request2, vao trang "xac nhan"
       response1 = RestClient.post("http://ts19.travian.com.vn/build.php?id=39&tt=2",
         {timestamp: @timestamp, timestamp_checksum: @timestamp_checksum,
@@ -48,7 +48,7 @@ class Farms
         y: @land.coordinate_y.to_s, c: "4", s1: "ok"}, cookies: @cookies)
       page = Nokogiri::HTML response1
       if !page.css("table#short_info").empty? #gui request 2 thanh coong
-        sleep 1
+        sleep (0.5 + rand*0.5)
         # gui request "xac nhan"
         response = RestClient.post("http://ts19.travian.com.vn/build.php?id=39&tt=2",
           {redeployHero: page.css("input[name='redeployHero'] @value").text,

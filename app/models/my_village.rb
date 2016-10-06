@@ -11,7 +11,7 @@ class MyVillage < ApplicationRecord
     @lands = lands.shuffle
     @lands.each do |land|
       break unless farm_for_land land, cookies
-      sleep(3)
+      sleep(1 + rand*2)
     end
   end
   def farm_for_land land, cookies
