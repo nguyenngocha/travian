@@ -177,8 +177,8 @@ class UpdateDatabases
       if href.value.starts_with? "?newdid"
         sleep 1
         response = RestClient.get("http://ts19.travian.com.vn/dorf1.php" + href.value,
-          cookies: {"T3E" => @cookies["T3E"], "lowRes" => "0", "sess_id" => @cookies["sess_id"]})
-        @dorf1 = Nokogiri::HTML(response)
+          cookies: {"T3E" => user.t3e, "lowRes" => "0", "sess_id" => user.sess_id})
+        @dorf1 = Nokogiri::HTML response
 
         return false if check_login? @dorf1 #keim tra xem con dang login khong
 
@@ -198,7 +198,7 @@ class UpdateDatabases
       load_my_village user
       # update thong tin
     else
-      user = User.create! name: name, password: password, race: race
+      user = User.create! name: name, password: password, race: race, t3e: @cookies["T3E"], sess_id: @cookies["sess_id"]
       load_my_village user
       # tao moi 1 user
     end
