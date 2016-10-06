@@ -8,7 +8,7 @@ class MyVillage < ApplicationRecord
   attr_accessor :armies_field
 
   def farm_for_village cookies
-    @lands = lands.order_by_distance
+    @lands = lands.shuffle
     @lands.each do |land|
       break unless farm_for_land land, cookies
       sleep(3)
