@@ -34,7 +34,7 @@ namespace :job do
       end
     end
     user.my_villages.each do |my_village|
-      puts "#{my_village.name}::#{Time.now.strftime("%Y-%m-%d %H:%M:%S")}"
+      puts "#{my_village.name}::#{Time.zone.now.strftime("%Y-%m-%d %H:%M:%S")}"
       my_village.farm_for_village @cookies
     end
     puts "___________________________________________________________"
