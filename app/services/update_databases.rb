@@ -14,11 +14,13 @@ class UpdateDatabases
   def load_data page
     hash = {army1: 0, army2: 0, army3: 0, army4: 0, army5: 0, army6: 0, army7: 0,
       army8: 0, army9: 0, army10: 0, army11: 0}
-    armys = page.css("table[class = 'troop_details']")[0].css("td.unit")
-    x = 1
-    armys.each do |army|
-      hash[("army" + x.to_s).to_sym] = army.text.split(/[^\d]/).join.to_i
-      x = x + 1
+    if !page.css("table[class = 'troop_details']")[0].nil?
+      armys = page.css("table[class = 'troop_details']")[0].css("td.unit")
+      x = 1
+      armys.each do |army|
+        hash[("army" + x.to_s).to_sym] = army.text.split(/[^\d]/).join.to_i
+        x = x + 1
+      end
     end
     return hash
   end
