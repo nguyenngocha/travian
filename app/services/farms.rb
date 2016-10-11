@@ -92,6 +92,7 @@ class Farms
           return true
         elsif !page.css("p.error").empty? && (page.css("p.error").text == "làng của tướng đã được thay đổi." ||
           page.css("p.error").text == "Không có làng nào ở tọa độ này" ||
+          page.css("p.error").text == "Bạn không thể gửi lính tới người chơi khác khi họ đang trong chế độ kỳ nghỉ." ||
           page.css("p.error").text == "Bạn chưa lựa chọn quân nào cả")
           @land.update_attributes! my_village_id: nil, user_id: nil
           puts "#{@land.coordinate_x}|#{@land.coordinate_y} vung dat bo hoang"
