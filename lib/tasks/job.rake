@@ -10,11 +10,11 @@ namespace :job do
     @cookies["lowRes"] = "0"
     @cookies["sess_id"] = user.sess_id
     # check login
-    while 1
+    (1..3).each do
       response = RestClient.get "http://ts19.travian.com.vn/dorf1.php", cookies: @cookies
       page = Nokogiri::HTML response
       if page.css("div#header ul#navigation").empty?
-        puts "da bi dang xuat"
+        puts "Da bi dang xuat"
         sleep 1
         logout_res = RestClient.get "http://ts19.travian.com.vn"
         logout_page = Nokogiri::HTML logout_res
@@ -26,10 +26,11 @@ namespace :job do
         login_page = Nokogiri::HTML @login_res
         unless login_page.css("div#header ul#navigation").empty?
           user.update_attributes! t3e: @login_res.cookies["T3E"], sess_id: @login_res.cookies["sess_id"]
+          puts "Da dang nhap lai"
           break
         end
       else
-        puts "van dang nhap"
+        puts "Van dang nhap"
         break
       end
     end
