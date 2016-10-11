@@ -11,27 +11,34 @@ class Farms
   def check_number_army?
     sleep 1
     # gui request 1, vao trang "gui linh" de check so luong linh
-    response = RestClient.get("http://ts19.travian.com.vn/build.php" + @myvillage.link + "id=39&tt=2&gid=16",
-      cookies: @cookies)
+    url = "http://ts19.travian.com.vn/build.php" + @myvillage.link + "id=39&tt=2&gid=16"
+    response = RestClient::Request.execute(method: :get, url: url, timeout: 10, open_timeout: 10, cookies: @cookies)
+    # response = RestClient.get("http://ts19.travian.com.vn/build.php" + @myvillage.link + "id=39&tt=2&gid=16",
+    #   cookies: @cookies)
     page = Nokogiri::HTML(response)
-    @current_armies = page.css("table#troops td")
-    if @land.army1 > @current_armies[0].css("a[href= '#']").text.to_i ||
-      @land.army2 > @current_armies[4].css("a[href= '#']").text.to_i ||
-      @land.army3 > @current_armies[8].css("a[href= '#']").text.to_i ||
-      @land.army4 > @current_armies[1].css("a[href= '#']").text.to_i ||
-      @land.army5 > @current_armies[5].css("a[href= '#']").text.to_i ||
-      @land.army6 > @current_armies[9].css("a[href= '#']").text.to_i ||
-      @land.army7 > @current_armies[2].css("a[href= '#']").text.to_i ||
-      @land.army8 > @current_armies[6].css("a[href= '#']").text.to_i ||
-      @land.army9 > @current_armies[3].css("a[href= '#']").text.to_i ||
-      @land.army10 > @current_armies[7].css("a[href= '#']").text.to_i
-      puts "het linh"
-      false
+    if !page.nil?
+      @current_armies = page.css("table#troops td")
+      if @land.army1 > @current_armies[0].css("a[href= '#']").text.to_i ||
+        @land.army2 > @current_armies[4].css("a[href= '#']").text.to_i ||
+        @land.army3 > @current_armies[8].css("a[href= '#']").text.to_i ||
+        @land.army4 > @current_armies[1].css("a[href= '#']").text.to_i ||
+        @land.army5 > @current_armies[5].css("a[href= '#']").text.to_i ||
+        @land.army6 > @current_armies[9].css("a[href= '#']").text.to_i ||
+        @land.army7 > @current_armies[2].css("a[href= '#']").text.to_i ||
+        @land.army8 > @current_armies[6].css("a[href= '#']").text.to_i ||
+        @land.army9 > @current_armies[3].css("a[href= '#']").text.to_i ||
+        @land.army10 > @current_armies[7].css("a[href= '#']").text.to_i
+        puts "het linh"
+        false
+      else
+        @timestamp = page.css("input[name='timestamp'] @value").text
+        @timestamp_checksum = page.css("input[name='timestamp_checksum'] @value").text
+        @b = page.css("input[name='b'] @value").text
+        true
+      end
     else
-      @timestamp = page.css("input[name='timestamp'] @value").text
-      @timestamp_checksum = page.css("input[name='timestamp_checksum'] @value").text
-      @b = page.css("input[name='b'] @value").text
-      true
+      puts "timeout"
+      false
     end
   end
 
