@@ -17,7 +17,7 @@ class Farms
       cookies: @cookies)
     page = Nokogiri::HTML(response)
     @current_armies = page.css("table#troops td")
-    if !@current_armies.nil? && !@current_armies.empty?
+    if !@current_armies.empty?
       if @land.army1 > @current_armies[0].css("a[href= '#']").text.to_i ||
         @land.army2 > @current_armies[4].css("a[href= '#']").text.to_i ||
         @land.army3 > @current_armies[8].css("a[href= '#']").text.to_i ||
