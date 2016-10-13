@@ -17,7 +17,7 @@ class Farms
       cookies: @cookies)
     page = Nokogiri::HTML(response)
     @current_armies = page.css("table#troops td")
-    if !@current_armies.nil?
+    if !@current_armies.nil? && !@current_armies.empty?
       if @land.army1 > @current_armies[0].css("a[href= '#']").text.to_i ||
         @land.army2 > @current_armies[4].css("a[href= '#']").text.to_i ||
         @land.army3 > @current_armies[8].css("a[href= '#']").text.to_i ||
@@ -90,12 +90,14 @@ class Farms
               end
             }
           return true
-        elsif !page.css("p.error").empty? && (page.css("p.error").text == "làng của tướng đã được thay đổi." ||
-          page.css("p.error").text == "Không có làng nào ở tọa độ này" ||
-          page.css("p.error").text == "Bạn không thể gửi lính tới người chơi khác khi họ đang trong chế độ kỳ nghỉ." ||
-          page.css("p.error").text == "Bạn chưa lựa chọn quân nào cả")
+        elsif !page.css("p.error").empty? && (page.css("p.error").text == "Không có làng nào ở tọa độ này" ||
+          page.css("p.error").text == "Bạn không thể gửi lính tới người chơi khác khi họ đang trong chế độ kỳ nghỉ.")
           @land.update_attributes! my_village_id: nil, user_id: nil
           puts "#{@land.coordinate_x}|#{@land.coordinate_y} vung dat bo hoang"
+          return true
+        elsif !page.css("p.error").empty? && (page.css("p.error").text == "làng của tướng đã được thay đổi." ||
+          page.css("p.error").text == "Bạn chưa lựa chọn quân nào cả")
+          puts "#{@land.coordinate_x}|#{@land.coordinate_y}: Loi step 1"
           return true
         end
       else
