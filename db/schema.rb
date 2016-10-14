@@ -114,6 +114,7 @@ ActiveRecord::Schema.define(version: 20160923050532) do
     t.string   "t3e"
     t.string   "lowres"
     t.string   "sess_id"
+    t.integer  "active"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end

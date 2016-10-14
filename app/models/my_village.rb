@@ -7,15 +7,15 @@ class MyVillage < ApplicationRecord
 
   attr_accessor :armies_field
 
-  def farm_for_village cookies
-    @lands = lands.shuffle
+  def farm_for_village cookies, active
+    @lands = lands.order_by_distance
     @lands.each do |land|
-      break unless farm_for_land land, cookies
+      break unless farm_for_land land, cookies, active
       sleep(3)
     end
   end
-  def farm_for_land land, cookies
-    if Farms.new(cookies, self, land).send_request
+  def farm_for_land land, cookies, active
+    if Farms.new(cookies, self, land, active).send_request
       puts "#{name}: farm success (#{land.coordinate_x}|#{land.coordinate_y}), distance: #{land.distance},
         #{land.army1}-#{land.army2}-#{land.army3}-#{land.army4}-#{land.army5}-#{land.army6}-#{land.army7}-#{land.army8}-#{land.army9}-#{land.army10}-#{land.army11}"
       return true
