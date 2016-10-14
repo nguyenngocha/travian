@@ -2,10 +2,11 @@ class Farms
   require "rest-client"
   require "nokogiri"
 
-  def initialize cookies, myvillage, land
+  def initialize cookies, myvillage, land, active
     @cookies = cookies
     @myvillage = myvillage
     @land = land
+    @active = active
   end
 
   def check_number_army?
@@ -44,6 +45,11 @@ class Farms
   end
 
   def send_request
+    @user = User.find_by id: @myvillage.user_id
+    if @user.active != @active
+      puts "Stop this turn"
+      return false
+    end
     if check_number_army?
       if !@b.nil?
         sleep 1

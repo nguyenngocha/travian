@@ -15,6 +15,7 @@ namespace :job do
       page = Nokogiri::HTML response
       if page.css("div#header ul#navigation").empty?
         puts "Da bi dang xuat"
+        puts "#{Time.zone.now.strftime("%Y-%m-%d %H:%M:%S")}"
         sleep 1
         logout_res = RestClient.get "http://ts19.travian.com.vn"
         logout_page = Nokogiri::HTML logout_res
@@ -34,9 +35,12 @@ namespace :job do
         break
       end
     end
+    active = rand(1..1000)
+    user.update_attributes! active: active
+    puts "Active: #{user.active}"
     user.my_villages.each do |my_village|
       puts "#{my_village.name}::#{Time.zone.now.strftime("%Y-%m-%d %H:%M:%S")}"
-      my_village.farm_for_village @cookies
+      my_village.farm_for_village @cookies, user.active
     end
     puts "___________________________________________________________"
   end
