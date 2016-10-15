@@ -11,7 +11,7 @@ class MyVillage < ApplicationRecord
     @lands = lands.order_by_distance
     @lands.each do |land|
       break unless farm_for_land land, cookies, active
-      sleep(3)
+      sleep 3
     end
   end
   def farm_for_land land, cookies, active

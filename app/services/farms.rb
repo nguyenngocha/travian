@@ -10,13 +10,26 @@ class Farms
   end
 
   def check_number_army?
-    sleep 1
-    # gui request 1, vao trang "gui linh" de check so luong linh
-    # url = "http://ts19.travian.com.vn/build.php" + @myvillage.link + "id=39&tt=2&gid=16"
-    # response = RestClient::Request.execute(method: :get, url: url, timeout: 10, open_timeout: 10, cookies: @cookies)
     response = RestClient.get("http://ts19.travian.com.vn/build.php" + @myvillage.link + "id=39&tt=2&gid=16",
       cookies: @cookies)
-    page = Nokogiri::HTML(response)
+    page = Nokogiri::HTML response
+    if page.css("div#header ul#navigation").empty? #kiem tra tinh trang dang nhap
+      puts "Da bi dang xuat(farm.rb)"
+      puts "#{Time.zone.now.strftime("%Y-%m-%d %H:%M:%S")}"
+      sleep 1
+      logout_res = RestClient.get "http://ts19.travian.com.vn"
+      logout_page = Nokogiri::HTML logout_res
+      login = logout_page.css("input[name='login'] @value").text
+      sleep 1
+      @login_res = RestClient.post "http://ts19.travian.com.vn/dorf1.php",
+        {name: @myvillage.user.name, password: @myvillage.user.password,
+        s1: "Đăng+nhập", w: "1366:768", login: login, lowRes: "0"}
+      login_page = Nokogiri::HTML @login_res
+      unless login_page.css("div#header ul#navigation").empty?
+        @myvillage.user.update_attributes! t3e: @login_res.cookies["T3E"], sess_id: @login_res.cookies["sess_id"]
+        puts "Da dang nhap lai(farm.rb)"
+      end
+    end
     @current_armies = page.css("table#troops td")
     if !@current_armies.empty?
       if @land.army1 > @current_armies[0].css("a[href= '#']").text.to_i ||
@@ -63,7 +76,6 @@ class Farms
           y: @land.coordinate_y.to_s, c: "4", s1: "ok"}, cookies: @cookies)
         page = Nokogiri::HTML response1
         if !page.css("table#short_info").empty? #gui request 2 thanh coong
-          sleep 1
           # gui request "xac nhan"
           response = RestClient.post("http://ts19.travian.com.vn/build.php?id=39&tt=2",
             {redeployHero: page.css("input[name='redeployHero'] @value").text,
