@@ -13,6 +13,7 @@ class StaticPagesController < ApplicationController
 
   def stop
     system "crontab -r"
+    current_user.update_attributes! active: 0
     redirect_to lands_path
   end
 end

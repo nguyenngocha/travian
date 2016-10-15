@@ -20,7 +20,6 @@ namespace :job do
         logout_res = RestClient.get "http://ts19.travian.com.vn"
         logout_page = Nokogiri::HTML logout_res
         login = logout_page.css("input[name='login'] @value").text
-        sleep 1
         @login_res = RestClient.post "http://ts19.travian.com.vn/dorf1.php",
           {name: user.name, password: user.password,
           s1: "Đăng+nhập", w: "1366:768", login: login, lowRes: "0"}
