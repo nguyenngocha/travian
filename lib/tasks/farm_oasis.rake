@@ -1,9 +1,6 @@
-require "rest-client"
-require "nokogiri"
-
 namespace :job do
   desc "TODO"
-  task farm_all: :environment do
+  task farm_oasis: :environment do
     user = User.first
     @cookies = Hash.new
     @cookies["T3E"] = user.t3e
@@ -16,7 +13,7 @@ namespace :job do
       if page.css("div#header ul#navigation").empty?
         puts "Da bi dang xuat"
         puts "#{Time.zone.now.strftime("%Y-%m-%d %H:%M:%S")}"
-        sleep 1
+        sleep 0.5
         logout_res = RestClient.get "http://ts19.travian.com.vn"
         logout_page = Nokogiri::HTML logout_res
         login = logout_page.css("input[name='login'] @value").text
@@ -37,10 +34,10 @@ namespace :job do
     active = rand(1..1000)
     user.update_attributes! active: active
     puts "Active: #{user.active}"
-    user.my_villages.each do |my_village|
-      puts "#{my_village.name}::#{Time.zone.now.strftime("%Y-%m-%d %H:%M:%S")}"
-      my_village.farm_for_village @cookies, user.active
-    end
-    puts "___________________________________________________________"
+
+    RandomUpgrateOutDorf.new(@cookies, MyVillage.find(14), user.active).send_request
+    # user.my_villages.each do |my_village|
+    #   my_village.farm_for_v_oasis @cookies, user.active
+    # end
   end
 end

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160923050532) do
+ActiveRecord::Schema.define(version: 20170129135531) do
 
   create_table "armies", force: :cascade do |t|
     t.integer  "army1"
@@ -75,24 +75,26 @@ ActiveRecord::Schema.define(version: 20160923050532) do
   end
 
   create_table "oasises", force: :cascade do |t|
-    t.integer  "bonus_wood"
-    t.integer  "bonus_clay"
-    t.integer  "bonus_iron"
-    t.integer  "bonus_crop"
-    t.integer  "rat"
-    t.integer  "spider"
-    t.integer  "snake"
-    t.integer  "bat"
-    t.integer  "wild_boar"
-    t.integer  "wolf"
-    t.integer  "bear"
-    t.integer  "crocodile"
-    t.integer  "tiger"
-    t.integer  "elephant"
-    t.integer  "land_id"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["land_id"], name: "index_oasises_on_land_id"
+    t.integer  "coordinate_x"
+    t.integer  "coordinate_y"
+    t.float    "distance"
+    t.integer  "army1",         default: 0
+    t.integer  "army2",         default: 0
+    t.integer  "army3",         default: 0
+    t.integer  "army4",         default: 0
+    t.integer  "army5",         default: 0
+    t.integer  "army6",         default: 0
+    t.integer  "army7",         default: 0
+    t.integer  "army8",         default: 0
+    t.integer  "army9",         default: 0
+    t.integer  "army10",        default: 0
+    t.integer  "army11",        default: 0
+    t.integer  "my_village_id"
+    t.integer  "user_id"
+    t.datetime "created_at",                null: false
+    t.datetime "updated_at",                null: false
+    t.index ["my_village_id"], name: "index_oasises_on_my_village_id"
+    t.index ["user_id"], name: "index_oasises_on_user_id"
   end
 
   create_table "resources", force: :cascade do |t|
@@ -104,6 +106,16 @@ ActiveRecord::Schema.define(version: 20160923050532) do
     t.datetime "created_at",    null: false
     t.datetime "updated_at",    null: false
     t.index ["my_village_id"], name: "index_resources_on_my_village_id"
+  end
+
+  create_table "upgrate_schedules", force: :cascade do |t|
+    t.integer  "user_id"
+    t.integer  "my_village_id"
+    t.integer  "upgrate_id"
+    t.datetime "created_at",    null: false
+    t.datetime "updated_at",    null: false
+    t.index ["my_village_id"], name: "index_upgrate_schedules_on_my_village_id"
+    t.index ["user_id"], name: "index_upgrate_schedules_on_user_id"
   end
 
   create_table "users", force: :cascade do |t|
