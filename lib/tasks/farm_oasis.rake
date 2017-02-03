@@ -35,9 +35,8 @@ namespace :job do
     user.update_attributes! active: active
     puts "Active: #{user.active}"
 
-    RandomUpgrateOutDorf.new(@cookies, MyVillage.find(14), user.active).send_request
-    # user.my_villages.each do |my_village|
-    #   my_village.farm_for_v_oasis @cookies, user.active
-    # end
+    user.my_villages.each do |my_village|
+      my_village.farm_for_v_oasis @cookies, user.active
+    end
   end
 end

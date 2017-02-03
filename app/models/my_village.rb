@@ -20,7 +20,7 @@ class MyVillage < ApplicationRecord
   def farm_for_v_oasis cookies, active
     @oasises = oasises.order_by_distance
     @oasises.each do |oasis|
-      print "farm (#{oasis.coordinate_x}, #{oasis.coordinate_y}) : "
+      print "farm oasise (#{oasis.coordinate_x}, #{oasis.coordinate_y}) : "
       break unless farm_for_oasis oasis, cookies, active
       sleep rand*1
     end

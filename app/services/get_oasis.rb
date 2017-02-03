@@ -30,12 +30,13 @@ class GetOasis
   end
 
   def get_oasis loop_x, loop_y, process
-    responses = RestClient.get("http://ts19.travian.com.vn/position_details.php?x=#{loop_x}&y=#{loop_y}", cookies: {"T3E" => @cookies["T3E"], "lowRes" => "0", "sess_id" => @cookies["sess_id"]})
+    responses = RestClient.get("http://ts1.travian.com.vn/position_details.php?x=#{loop_x}&y=#{loop_y}", cookies: {"T3E" => @cookies["T3E"], "lowRes" => "0", "sess_id" => @cookies["sess_id"]})
     page = Nokogiri::HTML responses
+
     if is_oasis? page
       puts "Oasise.create! coordinate_x: #{loop_x}, coordinate_y: #{loop_y}, my_village_id: #{@myvillage.id}"
 # fix army in here !
-      Oasise.create! coordinate_x: loop_x, coordinate_y: loop_y, my_village_id: @myvillage.id, army1: 2
+      Oasise.create! coordinate_x: loop_x, coordinate_y: loop_y, my_village_id: @myvillage.id, army1: 3
       puts "#{loop_x}|#{loop_y}|#{@myvillage.name} ~ true - #{process}"
     else
       puts "#{loop_x}|#{loop_y}|#{@myvillage.name} ~ false - #{process}"
@@ -43,7 +44,9 @@ class GetOasis
   end
 
   def is_oasis? page
-    return true if page.css(".titleInHeader").text.include? "ốc đảo bỏ hoang"
+    if page.css(".titleInHeader").text.include? "ốc đảo bỏ hoang"
+      return true
+    end
     return false
   end
 end

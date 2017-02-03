@@ -26,7 +26,7 @@ class UpdateDatabases
   end
 
   def create_resource href, myvillage
-    response = RestClient.get("http://ts19.travian.com.vn/dorf1.php" + href.value,
+    response = RestClient.get("http://ts1.travian.com.vn/dorf1.php" + href.value,
       cookies: {"T3E" => @cookies["T3E"], "lowRes" => "0", "sess_id" => @cookies["sess_id"]})
     page = Nokogiri::HTML(response)
     return false if check_login? page
@@ -48,7 +48,7 @@ class UpdateDatabases
       crop_quanity: dorf1.css("table#production td.num")[3].text.split(/[^\d]/).join.to_i
 
     # update army
-    response = RestClient.get("http://ts19.travian.com.vn/build.php" + href.value + "id=39&tt=1",
+    response = RestClient.get("http://ts1.travian.com.vn/build.php" + href.value + "id=39&tt=1",
       cookies: {"T3E" => @cookies["T3E"], "lowRes" => "0", "sess_id" => @cookies["sess_id"]})
 
     page = Nokogiri::HTML(response)
@@ -78,7 +78,7 @@ class UpdateDatabases
       end
     end
     #het resource ngoai thanh
-    response = RestClient.get("http://ts19.travian.com.vn/dorf2.php" + href.value,
+    response = RestClient.get("http://ts1.travian.com.vn/dorf2.php" + href.value,
       cookies: {"T3E" => @cookies["T3E"], "lowRes" => "0", "sess_id" => @cookies["sess_id"]})
     dorf2 = Nokogiri::HTML(response)
     return false if check_login? dorf2 #keim tra xem con dang login khong
@@ -126,7 +126,7 @@ class UpdateDatabases
     if myvillage
 
       # tao army
-      response = RestClient.get("http://ts19.travian.com.vn/build.php" + href.value + "id=39&tt=1",
+      response = RestClient.get("http://ts1.travian.com.vn/build.php" + href.value + "id=39&tt=1",
         cookies: {"T3E" => @cookies["T3E"], "lowRes" => "0", "sess_id" => @cookies["sess_id"]})
       page = Nokogiri::HTML(response)
       return false if check_login? page #keim tra xem con dang login khong
@@ -150,7 +150,7 @@ class UpdateDatabases
       end
 
       #load het resource ngoai thanh
-      response = RestClient.get("http://ts19.travian.com.vn/dorf2.php" + href.value,
+      response = RestClient.get("http://ts1.travian.com.vn/dorf2.php" + href.value,
         cookies: {"T3E" => @cookies["T3E"], "lowRes" => "0", "sess_id" => @cookies["sess_id"]})
       dorf2 = Nokogiri::HTML(response)
       return false if check_login? dorf2 #keim tra xem con dang login khong
@@ -178,7 +178,7 @@ class UpdateDatabases
     hrefs.each do |href|
       if href.value.starts_with? "?newdid"
         sleep 1
-        response = RestClient.get("http://ts19.travian.com.vn/dorf1.php" + href.value,
+        response = RestClient.get("http://ts1.travian.com.vn/dorf1.php" + href.value,
           cookies: {"T3E" => user.t3e, "lowRes" => "0", "sess_id" => user.sess_id})
         @dorf1 = Nokogiri::HTML response
 
