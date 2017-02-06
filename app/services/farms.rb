@@ -10,18 +10,18 @@ class Farms
   end
 
   def check_number_army?
-    response = RestClient.get("http://ts19.travian.com.vn/build.php" + @myvillage.link + "id=39&tt=2&gid=16",
+    response = RestClient.get("http://ts1.travian.com.vn/build.php" + @myvillage.link + "id=39&tt=2&gid=16",
       cookies: @cookies)
     page = Nokogiri::HTML response
     if page.css("div#header ul#navigation").empty? #kiem tra tinh trang dang nhap
       puts "Da bi dang xuat(farm.rb)"
       puts "#{Time.zone.now.strftime("%Y-%m-%d %H:%M:%S")}"
       sleep 1
-      logout_res = RestClient.get "http://ts19.travian.com.vn"
+      logout_res = RestClient.get "http://ts1.travian.com.vn"
       logout_page = Nokogiri::HTML logout_res
       login = logout_page.css("input[name='login'] @value").text
       sleep 1
-      @login_res = RestClient.post "http://ts19.travian.com.vn/dorf1.php",
+      @login_res = RestClient.post "http://ts1.travian.com.vn/dorf1.php",
         {name: @myvillage.user.name, password: @myvillage.user.password,
         s1: "Đăng+nhập", w: "1366:768", login: login, lowRes: "0"}
       login_page = Nokogiri::HTML @login_res
@@ -67,7 +67,7 @@ class Farms
       if !@b.nil?
         sleep 1
         # gui request2, vao trang "xac nhan"
-        response1 = RestClient.post("http://ts19.travian.com.vn/build.php?id=39&tt=2",
+        response1 = RestClient.post("http://ts1.travian.com.vn/build.php?id=39&tt=2",
           {timestamp: @timestamp, timestamp_checksum: @timestamp_checksum,
           b: @b, currentDid: @myvillage.link.split(/[^\d]/).join, t1: @land.army1.to_s,
           t2: @land.army2.to_s, t3: @land.army3.to_s, t4: @land.army4.to_s, t5: @land.army5.to_s,
@@ -77,7 +77,7 @@ class Farms
         page = Nokogiri::HTML response1
         if !page.css("table#short_info").empty? #gui request 2 thanh coong
           # gui request "xac nhan"
-          response = RestClient.post("http://ts19.travian.com.vn/build.php?id=39&tt=2",
+          response = RestClient.post("http://ts1.travian.com.vn/build.php?id=39&tt=2",
             {redeployHero: page.css("input[name='redeployHero'] @value").text,
             timestamp: page.css("input[name='timestamp'] @value").text,
             timestamp_checksum: page.css("input[name='timestamp_checksum'] @value").text,
