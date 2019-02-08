@@ -14,7 +14,9 @@ Rails.application.routes.draw do
 
   get "/stop", to: "static_pages#stop"
 
-  resources :my_villages
+  resources :my_villages do
+    resources :upgrate_schedules
+  end
   resources :lands
   resources :farms
 

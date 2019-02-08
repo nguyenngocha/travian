@@ -1,11 +1,11 @@
-set :output, "/home/ngocha/log.log"
+set :output, "/home/ubuntu/workspace/log.log"
 
 # every 10.minutes do
 #   rake "job:farm_all"
 # end
 
-every 1.hours do
-  rake "job:farm_oasis"
+every 5.minutes do
+  rake "job:auto_upgrate_random_dorf1"
 end
 
 # every 10.minutes do

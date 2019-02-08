@@ -3,10 +3,10 @@ class SessionsController < ApplicationController
   end
 
   def create
-    logout_res = RestClient.get "http://ts19.travian.com.vn/logout.php"
+    logout_res = RestClient.get "https://ts6.travian.com.vn/logout.php"
     logout_page = Nokogiri::HTML logout_res
     login = logout_page.css("input[name='login'] @value").text
-    login_res = RestClient.post "http://ts19.travian.com.vn/dorf1.php",
+    login_res = RestClient.post "https://ts6.travian.com.vn/dorf1.php",
       {name: params[:session][:name], password: params[:session][:password],
       s1: "Đăng+nhập", w: "1366:768", login: login, lowRes: "0"}
     @page = Nokogiri::HTML login_res
@@ -31,7 +31,7 @@ class SessionsController < ApplicationController
   end
 
   def destroy
-    RestClient.get "http://ts19.travian.com.vn/logout.php"
+    RestClient.get "https://ts6.travian.com.vn/logout.php"
     log_out if logged_in?
     redirect_to root_url
   end

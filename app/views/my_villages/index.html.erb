@@ -1,3 +1,14 @@
-<h1><%= t "My Village" %></h1>
-
-<%= render @my_villages %>
+<table class="table table-striped">
+  <thead>
+    <tr>
+      <% @my_villages.each do |vl| %>
+        <td><%= vl.name %></td>
+      <% end %>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <%= render @my_villages %>
+    </tr>
+  </tbody>
+</table>

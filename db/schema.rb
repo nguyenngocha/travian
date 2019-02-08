@@ -109,13 +109,11 @@ ActiveRecord::Schema.define(version: 20170129135531) do
   end
 
   create_table "upgrate_schedules", force: :cascade do |t|
-    t.integer  "user_id"
     t.integer  "my_village_id"
     t.integer  "upgrate_id"
     t.datetime "created_at",    null: false
     t.datetime "updated_at",    null: false
     t.index ["my_village_id"], name: "index_upgrate_schedules_on_my_village_id"
-    t.index ["user_id"], name: "index_upgrate_schedules_on_user_id"
   end
 
   create_table "users", force: :cascade do |t|
