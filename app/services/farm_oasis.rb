@@ -43,6 +43,7 @@ class FarmOasis
 
     @current_armies = page.css("table#troops td")
     if !@current_armies.empty?
+      puts @current_armies
       if @oasise.army1 > @current_armies[0].css("a[href= '#']").text.to_i ||
         @oasise.army2 > @current_armies[4].css("a[href= '#']").text.to_i ||
         @oasise.army3 > @current_armies[8].css("a[href= '#']").text.to_i ||
