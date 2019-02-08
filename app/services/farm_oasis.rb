@@ -43,17 +43,17 @@ class FarmOasis
 
     @current_armies = page.css("table#troops td")
     if !@current_armies.empty?
-      puts @current_armies
-      if @oasise.army1 > @current_armies[0].css("a[href= '#']").text.to_i ||
-        @oasise.army2 > @current_armies[4].css("a[href= '#']").text.to_i ||
-        @oasise.army3 > @current_armies[8].css("a[href= '#']").text.to_i ||
-        @oasise.army4 > @current_armies[1].css("a[href= '#']").text.to_i ||
-        @oasise.army5 > @current_armies[5].css("a[href= '#']").text.to_i ||
-        @oasise.army6 > @current_armies[9].css("a[href= '#']").text.to_i ||
-        @oasise.army7 > @current_armies[2].css("a[href= '#']").text.to_i ||
-        @oasise.army8 > @current_armies[6].css("a[href= '#']").text.to_i ||
-        @oasise.army9 > @current_armies[3].css("a[href= '#']").text.to_i ||
-        @oasise.army10 > @current_armies[7].css("a[href= '#']").text.to_i
+
+      if @oasise.army1 > @current_armies[0].css("a[href= '#']").text[1...-1].to_i ||
+        @oasise.army2 > @current_armies[4].css("a[href= '#']").text[1...-1].to_i ||
+        @oasise.army3 > @current_armies[8].css("a[href= '#']").text[1...-1].to_i ||
+        @oasise.army4 > @current_armies[1].css("a[href= '#']").text[1...-1].to_i ||
+        @oasise.army5 > @current_armies[5].css("a[href= '#']").text[1...-1].to_i ||
+        @oasise.army6 > @current_armies[9].css("a[href= '#']").text[1...-1].to_i ||
+        @oasise.army7 > @current_armies[2].css("a[href= '#']").text[1...-1].to_i ||
+        @oasise.army8 > @current_armies[6].css("a[href= '#']").text[1...-1].to_i ||
+        @oasise.army9 > @current_armies[3].css("a[href= '#']").text[1...-1].to_i ||
+        @oasise.army10 > @current_armies[7].css("a[href= '#']").text[1...-1].to_i
         puts "het linh"
         false
       else
