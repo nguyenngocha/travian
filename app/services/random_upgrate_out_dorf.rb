@@ -47,9 +47,12 @@ class RandomUpgrateOutDorf
 
   private
   def can_upgrate?
-    response = RestClient.get "https://ts6.travian.com.vn/dorf1.php#{@myvillage.link}", cookies: @cookies
+    response = RestClient.get "http://ts1.travian.com.vn/dorf1.php#{@myvillage.link}", cookies: @cookies
     response = Nokogiri::HTML response
-    return true
+    unless response.css(".boxes-contents .buildDuration span").present?
+      return true
+    end
+    return false
   end
 
   def get_id_building_enough_resource
