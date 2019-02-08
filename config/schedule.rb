@@ -9,7 +9,7 @@ every 5.minutes do
 end
 
 every 13.minutes do
-  rake "rake job:farm_oasis"
+  rake "job:farm_oasis"
 end
 
 # whenever --update-crontab --set environment=development
