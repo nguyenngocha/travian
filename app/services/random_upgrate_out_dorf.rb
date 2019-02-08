@@ -48,7 +48,7 @@ class RandomUpgrateOutDorf
   private
   def can_upgrate?
     response = RestClient.get "https://ts6.travian.com.vn/dorf1.php#{@myvillage.link}", cookies: @cookies
-    puts response.css(".boxes-contents .buildDuration span")
+    response = Nokogiri::HTML response
     if response.css(".boxes-contents .buildDuration span").present?
       return false
     end
