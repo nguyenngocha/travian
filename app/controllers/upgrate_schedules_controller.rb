@@ -20,7 +20,7 @@ class UpgrateSchedulesController < ApplicationController
 
   def destroy
     @upgrate_building.destroy
-    redirect_to account_villages_path(@account)
+    redirect_to my_villages_path
   end
 
   private
@@ -40,7 +40,7 @@ class UpgrateSchedulesController < ApplicationController
     @upgrate_building = @village.upgrate_schedules.find_by id: params[:id]
     if @upgrate_building.nil?
       flash[:dangder] = "không tìm thấy upgrate building"
-      redirect_to account_village_upgrate_schedules_path(@account, @village)
+      redirect_to my_villages_path
     end
   end
 end

@@ -13,7 +13,6 @@ namespace :job do
       if page.css("div#header ul#navigation").empty?
         puts "Da bi dang xuat"
         puts "#{Time.zone.now.strftime("%Y-%m-%d %H:%M:%S")}"
-        sleep 0.5
         logout_res = RestClient.get "https://ts6.travian.com.vn"
         logout_page = Nokogiri::HTML logout_res
         login = logout_page.css("input[name='login'] @value").text

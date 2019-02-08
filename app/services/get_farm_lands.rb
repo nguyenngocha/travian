@@ -31,7 +31,7 @@ class GetFarmLands
   end
 
   def check_farm loop_x, loop_y, file_save_data, process
-    responses = RestClient.get("http://ts1.travian.com.vn/position_details.php?x=#{loop_x}&y=#{loop_y}", cookies: {"T3E" => @cookies["T3E"], "lowRes" => "0", "sess_id" => @cookies["sess_id"]})
+    responses = RestClient.get("https://ts6.travian.com.vn/position_details.php?x=#{loop_x}&y=#{loop_y}", cookies: {"T3E" => @cookies["T3E"], "lowRes" => "0", "sess_id" => @cookies["sess_id"]})
     page = Nokogiri::HTML responses
     if is_farm? page
       ppls = population page
@@ -60,8 +60,8 @@ class GetFarmLands
   end
 
   # def is_farm_oasis? x, y
-  #   # http://ts1.travian.com.vn/karte.php?newdid=30788&x=-46&y=18
-  #   responses = RestClient.get("http://ts1.travian.com.vn/position_details.php?x=#{x}&y=#{y}", cookies: {"T3E" => @cookies["T3E"], "lowRes" => "0", "sess_id" => @cookies["sess_id"]})
+  #   # https://ts6.travian.com.vn/karte.php?newdid=30788&x=-46&y=18
+  #   responses = RestClient.get("https://ts6.travian.com.vn/position_details.php?x=#{x}&y=#{y}", cookies: {"T3E" => @cookies["T3E"], "lowRes" => "0", "sess_id" => @cookies["sess_id"]})
   #   data = Nokogiri::HTML responses
   #   if data.css(".titleInHeader").text.include? "ốc đảo bỏ hoang"
   #     true

@@ -16,6 +16,7 @@ class AutoUpgrate
       return false
     end
 
+    sleep 0.25
     response = RestClient.get "https://ts6.travian.com.vn/#{@link_id}", cookies: @cookies
     response = Nokogiri::HTML response
     link = response.css("#content #build button").first
