@@ -35,8 +35,9 @@ gem "jbuilder", "~> 2.5"
 # gem "capistrano-rails", group: :development
 gem "whenever", :require => false
 
+  gem "sqlite3", "~> 1.3.6"
+
 group :development, :test do
-  gem "sqlite3"
   # Call "byebug" anywhere in the code to stop execution and get a debugger console
   gem "byebug", platform: :mri
 end
