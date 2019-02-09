@@ -22,10 +22,10 @@ class GetOasis
         process = "#{counter}/#{total}"
         get_oasis loop_x, loop_y, process
         loop_y += 1
-        sleep rand*3
+        sleep rand*1
       end
       loop_x += 1
-      sleep rand*3
+      sleep rand*1
     end
   end
 
