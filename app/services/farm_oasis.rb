@@ -14,7 +14,6 @@ class FarmOasis
       cookies: {"T3E" => @cookies["T3E"], "lowRes" => "0", "sess_id" => @cookies["sess_id"]})
     page = Nokogiri::HTML responses
 
-    puts page.css("#troop_info")[0].text.include? "không có"
     return page.css("#troop_info")[0].text.include? "không có"
   end
 
