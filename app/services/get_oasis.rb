@@ -19,27 +19,30 @@ class GetOasis
 
       while loop_y < @myvillage.coordinate_y + @farm_coordinate
         counter += 1
-        process = "#{counter}/#{total}"
-        get_oasis loop_x, loop_y, process
         loop_y += 1
-        sleep rand*1
+        print "#{loop_x}|#{loop_y}|#{@myvillage.name} ~ "
+        if((@myvillage.coordinate_x - loop_x)**2 + (@myvillage.coordinate_y - loop_y)**2 > @farm_coordinate**2 )
+          puts "false"
+          next
+        end
+        get_oasis loop_x, loop_y
       end
       loop_x += 1
       sleep rand*1
     end
   end
 
-  def get_oasis loop_x, loop_y, process
+  def get_oasis loop_x, loop_y
     responses = RestClient.get("https://ts6.travian.com.vn/position_details.php?x=#{loop_x}&y=#{loop_y}", cookies: {"T3E" => @cookies["T3E"], "lowRes" => "0", "sess_id" => @cookies["sess_id"]})
     page = Nokogiri::HTML responses
 
     if is_oasis? page
       puts "Oasise.create! coordinate_x: #{loop_x}, coordinate_y: #{loop_y}, my_village_id: #{@myvillage.id}"
 # fix army in here !
-      Oasise.create! coordinate_x: loop_x, coordinate_y: loop_y, my_village_id: @myvillage.id, army1: 3
-      puts "#{loop_x}|#{loop_y}|#{@myvillage.name} ~ true - #{process}"
+      Oasise.create! coordinate_x: loop_x, coordinate_y: loop_y, my_village_id: @myvillage.id, army4: 2
+      puts "true"
     else
-      puts "#{loop_x}|#{loop_y}|#{@myvillage.name} ~ false - #{process}"
+      puts "false"
     end
   end
 
