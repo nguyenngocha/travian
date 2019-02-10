@@ -36,7 +36,7 @@ namespace :db do
     puts "Active: #{user.active}"
 
     MyVillage.find(1).oasises.destroy_all
-    GetOasis.new(@cookies, MyVillage.find(1), 15).get
+    GetOasis.new(@cookies, MyVillage.find(1), 12).get
     # get distance a to b
     # user.my_villages.each do |my_village|
     #   puts "#{my_village.name}::#{Time.zone.now.strftime("%Y-%m-%d %H:%M:%S")}"
