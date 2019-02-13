@@ -10,18 +10,18 @@ class Farms
   end
 
   def check_number_army?
-    response = RestClient.get("http://ts1.travian.com.vn/build.php" + @myvillage.link + "id=39&tt=2&gid=16",
+    response = RestClient.get("https://ts6.travian.com.vn/build.php" + @myvillage.link + "id=39&tt=2&gid=16",
       cookies: @cookies)
     page = Nokogiri::HTML response
     if page.css("div#header ul#navigation").empty? #kiem tra tinh trang dang nhap
       puts "Da bi dang xuat(farm.rb)"
       puts "#{Time.zone.now.strftime("%Y-%m-%d %H:%M:%S")}"
       sleep 1
-      logout_res = RestClient.get "http://ts1.travian.com.vn"
+      logout_res = RestClient.get "https://ts6.travian.com.vn"
       logout_page = Nokogiri::HTML logout_res
       login = logout_page.css("input[name='login'] @value").text
       sleep 1
-      @login_res = RestClient.post "http://ts1.travian.com.vn/dorf1.php",
+      @login_res = RestClient.post "https://ts6.travian.com.vn/dorf1.php",
         {name: @myvillage.user.name, password: @myvillage.user.password,
         s1: "Đăng+nhập", w: "1366:768", login: login, lowRes: "0"}
       login_page = Nokogiri::HTML @login_res
@@ -42,7 +42,7 @@ class Farms
         @land.army8 > @current_armies[6].css("a[href= '#']").text[1...-1].to_i ||
         @land.army9 > @current_armies[3].css("a[href= '#']").text[1...-1].to_i ||
         @land.army10 > @current_armies[7].css("a[href= '#']").text[1...-1].to_i
-        puts "het linh"
+        raise "het linh"
         false
       else
         @timestamp = page.css("input[name='timestamp'] @value").text
@@ -56,18 +56,37 @@ class Farms
       true
     end
   end
+  
+  def can_farm?
+    responses = RestClient.get("https://ts6.travian.com.vn/position_details.php?x=#{@land.coordinate_x}&y=#{@land.coordinate_y}", cookies: {"T3E" => @cookies["T3E"], "lowRes" => "0", "sess_id" => @cookies["sess_id"]})
+    page = Nokogiri::HTML responses
+    sleep 0.5
+    first_farm_history = page.css(".instantTabs tr td")[0].css("img")
+    unless first_farm_history.present?
+      return false
+    end
+
+    if first_farm_history.attr("class").to_s.include? "iReport1"
+      puts first_farm_history.attr("class")
+      return true
+    end
+    return false
+  end
 
   def send_request
     @user = User.find_by id: @myvillage.user_id
     if @user.active != @active
-      puts "Stop this turn"
+      raise 'Stop this turn'  
+    end
+    unless can_farm? 
       return false
     end
+
     if check_number_army?
       if !@b.nil?
         sleep 1
         # gui request2, vao trang "xac nhan"
-        response1 = RestClient.post("http://ts1.travian.com.vn/build.php?id=39&tt=2",
+        response1 = RestClient.post("https://ts6.travian.com.vn/build.php?id=39&tt=2",
           {timestamp: @timestamp, timestamp_checksum: @timestamp_checksum,
           b: @b, currentDid: @myvillage.link.split(/[^\d]/).join, t1: @land.army1.to_s,
           t2: @land.army2.to_s, t3: @land.army3.to_s, t4: @land.army4.to_s, t5: @land.army5.to_s,
@@ -77,7 +96,7 @@ class Farms
         page = Nokogiri::HTML response1
         if !page.css("table#short_info").empty? #gui request 2 thanh coong
           # gui request "xac nhan"
-          response = RestClient.post("http://ts1.travian.com.vn/build.php?id=39&tt=2",
+          response = RestClient.post("https://ts6.travian.com.vn/build.php?id=39&tt=2",
             {redeployHero: page.css("input[name='redeployHero'] @value").text,
             timestamp: page.css("input[name='timestamp'] @value").text,
             timestamp_checksum: page.css("input[name='timestamp_checksum'] @value").text,

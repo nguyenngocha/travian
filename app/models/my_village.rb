@@ -10,7 +10,7 @@ class MyVillage < ApplicationRecord
   attr_accessor :armies_field
 
   def farm_for_village cookies, active
-    @lands = lands.order_by_distance
+    @lands = lands.shuffle
     @lands.each do |land|
       break unless farm_for_land land, cookies, active
       sleep rand*1
@@ -35,7 +35,7 @@ class MyVillage < ApplicationRecord
     else
       puts "#{name}: farm fail (#{land.coordinate_x}|#{land.coordinate_y}), distance: #{land.distance},
         #{land.army1}-#{land.army2}-#{land.army3}-#{land.army4}-#{land.army5}-#{land.army6}-#{land.army7}-#{land.army8}-#{land.army9}-#{land.army10}-#{land.army11}"
-      return false
+      return true
     end
   end
 

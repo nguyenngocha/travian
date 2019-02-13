@@ -13,8 +13,6 @@ class GetOasis
     total = (@farm_coordinate*2 + 1) ** 2
     loop_x = @myvillage.coordinate_x - @farm_coordinate
     loop_y = @myvillage.coordinate_y - @farm_coordinate
-    puts @myvillage.coordinate_x
-    puts @myvillage.coordinate_y
 
     while loop_x < @myvillage.coordinate_x + @farm_coordinate
       loop_y = @myvillage.coordinate_y - @farm_coordinate
