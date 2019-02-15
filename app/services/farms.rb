@@ -66,7 +66,7 @@ class Farms
       return false
     end
 
-    if first_farm_history.attr("class").to_s.include? "iReport1"
+    if first_farm_history.attr("class").to_s.split(" ")[1] == "iReport1"
       puts first_farm_history.attr("class")
       return true
     end
