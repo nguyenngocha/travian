@@ -56,12 +56,18 @@ class Farms
       true
     end
   end
-  
+
   def can_farm?
     responses = RestClient.get("https://ts6.travian.com.vn/position_details.php?x=#{@land.coordinate_x}&y=#{@land.coordinate_y}", cookies: {"T3E" => @cookies["T3E"], "lowRes" => "0", "sess_id" => @cookies["sess_id"]})
     page = Nokogiri::HTML responses
     sleep 0.5
-    first_farm_history = page.css(".instantTabs tr td")[0].css("img")
+    first_farm_history = page.css(".instantTabs tr td")[0]
+    
+    unless first_farm_history.present?
+      return false
+    end
+
+    first_farm_history = first_farm_history.css("img")
     unless first_farm_history.present?
       return false
     end
