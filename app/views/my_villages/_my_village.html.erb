@@ -1,12 +1,33 @@
 <td>
-  <% my_village.upgrate_schedules.each do |us| %>
-    <li>
-      <%= us.upgrate_id if us %>
-      <%= link_to [my_village, us], method: :delete,
-        data: {confirm: "bạn có thực sự muốn xóa ID này ra khỏi danh sách hàng chờ upgrate ?"} do %>
-        <span class="glyphicon glyphicon-remove-sign" style="color: red;"></span>
-      <% end %>
-    </li>
-  <% end %>
-  <li><%= link_to "add", new_my_village_upgrate_schedule_path(my_village) %></li>
+  <div>
+    <h5>Upgrates</h5>
+    <% my_village.upgrate_schedules.each do |us| %>
+      <li>
+        <%= us.upgrate_id if us %>
+        <%= link_to [my_village, us], method: :delete,
+          data: {confirm: "bạn có thực sự muốn xóa ID này ra khỏi danh sách hàng chờ upgrate ?"} do %>
+          <span class="glyphicon glyphicon-remove-sign" style="color: red;"></span>
+        <% end %>
+      </li>
+    <% end %>
+    <li><%= link_to "add", new_my_village_upgrate_schedule_path(my_village) %></li>
+  </div>
+
+<hr />
+
+  <h5>Troops</h5>
+  <div>
+    <% my_village.troop_schedules.each do |ts| %>
+     <li>
+       <% if ts %>
+         id: <%= ts.troop_id %>&nbsp;|&nbsp;number: <%= ts.troop_number %>&nbsp;|&nbsp;stable: <%= ts.build_id %>
+         <%= link_to [my_village, ts], method: :delete,
+          data: {confirm: "bạn có thực sự muốn xóa ID này?"} do %>
+          <span class="glyphicon glyphicon-remove-sign" style="color: red;"></span>
+        <% end %>
+       <% end %>
+     </li>
+    <% end %>
+  </div>
+  <li><%= link_to "add", new_my_village_troop_schedule_path(my_village) %></li>
 </td>

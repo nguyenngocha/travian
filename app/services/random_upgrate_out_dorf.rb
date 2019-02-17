@@ -31,6 +31,7 @@ class RandomUpgrateOutDorf
         link_id = link_id.insert(10, myvillage) if link_id
       end
 
+      puts link_id
       if link_id.nil?
         puts "full-all"
       else
@@ -62,6 +63,7 @@ class RandomUpgrateOutDorf
     response.css("#content area").each do |area|
       title = area.attr("title")
       title = Nokogiri::HTML title
+      puts title
       if title.css(".showCosts").present?
         can_upgrate_buildings << area.attr("href").to_s
       end

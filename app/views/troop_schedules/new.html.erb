@@ -1,0 +1,12 @@
+<%= form_for [@village, @troop_creator] do |f| %>
+
+  <h4 style="padding-top:40px"> thông tin lính muốn xin trong làng <%= @village.name %> </h4>
+  <%= f.label :troop_id, "index loại lính" %>
+  <%= f.number_field :troop_id, in: 1..11, class: "form-control" %><br/>
+  <%= f.label :troop_number, "số lượng" %>
+  <%= f.number_field :troop_number, class: "form-control"%>
+  <%= f.label :troop_id, "id của chuồng ngựa" %>
+  <%= f.number_field :build_id, class: "form-control"%>
+  <%= f.hidden_field :my_village_id, value: @village.id %>
+  <%= f.submit "Add", class: "btn btn-success" %>
+<% end %>

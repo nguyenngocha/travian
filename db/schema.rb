@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170129135531) do
+ActiveRecord::Schema.define(version: 20190216113836) do
 
   create_table "armies", force: :cascade do |t|
     t.integer  "army1"
@@ -106,6 +106,16 @@ ActiveRecord::Schema.define(version: 20170129135531) do
     t.datetime "created_at",    null: false
     t.datetime "updated_at",    null: false
     t.index ["my_village_id"], name: "index_resources_on_my_village_id"
+  end
+
+  create_table "troop_schedules", force: :cascade do |t|
+    t.integer  "troop_id"
+    t.integer  "troop_number"
+    t.integer  "build_id"
+    t.integer  "my_village_id"
+    t.datetime "created_at",    null: false
+    t.datetime "updated_at",    null: false
+    t.index ["my_village_id"], name: "index_troop_schedules_on_my_village_id"
   end
 
   create_table "upgrate_schedules", force: :cascade do |t|
