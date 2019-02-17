@@ -23,11 +23,6 @@ class SendResource
       dname: "", x: @send_resource.target_x, y: @send_resource.target_y, id: @send_resource.market_id, t: "5", x2: "1", ajaxToken: @ajaxToken}, cookies: @cookies)
 
     page = Nokogiri::HTML response
-    if response.code != 200
-      puts "fail"
-      return
-    end
-
     inputs = page.css("input @value")
 
     @sz = inputs[4].to_s.gsub!(/[^0-9A-Za-z]/, '')
@@ -41,11 +36,6 @@ class SendResource
     response = RestClient.post(link, {cmd: "prepareMarketplace", r1: @send_resource.wood, r2: @send_resource.clay, r3: @send_resource.iron, r4: @send_resource.paddy,
       id: @send_resource.market_id, a: @village_id, sz: @sz, kid: @kid, c: @c, t: "5", x2: @x2, ajaxToken: @ajaxToken}, cookies: @cookies)
 
-    if response.code = 200
-      puts "success"
-    else
-      puts "fail"
-    end
   end
 end
 
