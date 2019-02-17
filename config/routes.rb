@@ -17,6 +17,7 @@ Rails.application.routes.draw do
   resources :my_villages do
     resources :upgrate_schedules
     resources :troop_schedules
+    resources :send_resource_schedules
   end
   resources :lands
   resources :farms

@@ -7,6 +7,7 @@ class MyVillage < ApplicationRecord
   has_many :resources, dependent: :destroy
   has_many :upgrate_schedules, dependent: :destroy
   has_many :troop_schedules, dependent: :destroy
+  has_many :send_resource_schedules, dependent: :destroy
 
   attr_accessor :armies_field
 

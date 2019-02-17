@@ -16,21 +16,28 @@ class CreateTroop
       return false
     end
 
-    link = "https://ts6.travian.com.vn/build.php?id=#{@troop_schedule.build_id}"
+    if @troop_schedule.troop_id < 3
+      gid = 19
+    elsif @troop_schedule.troop_id < 7
+      gid = 20
+    end
+
+    link = "https://ts6.travian.com.vn/build.php#{@myvillage.link}&id=#{@troop_schedule.build_id}&gid=#{gid}"
+    puts link
     response = RestClient.get link, cookies: @cookies
     response = Nokogiri::HTML response
     trainUnits = response.css(".trainUnits .details a[href= '#']")[2].text.split(/[^\d]/).join.to_i
-    puts trainUnits
 
+    puts trainUnits
     if @troop_schedule.troop_number > trainUnits
       return false
     end
 
-    puts response.css(".trainUnits input")
-    # response = RestClient.post(link, {id: @troop_schedule.build_id, a: 2, s: 1,
-    #   "t1": @troop_schedule.troop_number, s1: "ok"}, @cookies)
+    link = "https://ts6.travian.com.vn/build.php?id=#{@troop_schedule.build_id}"
+    puts link
+    z_value = response.at("form input[name=z]")["value"]
+    response = RestClient.post(link, {id: @troop_schedule.build_id.to_s, a: "2", s: "1", z: z_value, "t#{@troop_schedule.troop_id.to_s}": @troop_schedule.troop_number.to_s, s1: "ok"}, cookies: @cookies)
 
-    puts response
-    page = Nokogiri::HTML response
+    TroopSchedule.delete @troop_schedule if @troop_schedule
   end
 end

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20190216113836) do
+ActiveRecord::Schema.define(version: 20190217071627) do
 
   create_table "armies", force: :cascade do |t|
     t.integer  "army1"
@@ -106,6 +106,20 @@ ActiveRecord::Schema.define(version: 20190216113836) do
     t.datetime "created_at",    null: false
     t.datetime "updated_at",    null: false
     t.index ["my_village_id"], name: "index_resources_on_my_village_id"
+  end
+
+  create_table "send_resource_schedules", force: :cascade do |t|
+    t.integer  "my_village_id"
+    t.integer  "target_x"
+    t.integer  "target_y"
+    t.integer  "wood"
+    t.integer  "clay"
+    t.integer  "iron"
+    t.integer  "paddy"
+    t.integer  "market_id"
+    t.datetime "created_at",    null: false
+    t.datetime "updated_at",    null: false
+    t.index ["my_village_id"], name: "index_send_resource_schedules_on_my_village_id"
   end
 
   create_table "troop_schedules", force: :cascade do |t|

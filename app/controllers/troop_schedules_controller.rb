@@ -36,7 +36,7 @@ class TroopSchedulesController < ApplicationController
     params.require(:troop_schedule).permit :troop_id, :troop_number, :my_village_id, :build_id
   end
   
-    def load_troop_schedule
+  def load_troop_schedule
     @troop_creator = @village.troop_schedules.find_by id: params[:id]
     if @troop_creator.nil?
       flash[:dangder] = "không tìm thấy troop chedule"

@@ -30,4 +30,42 @@
     <% end %>
   </div>
   <li><%= link_to "add", new_my_village_troop_schedule_path(my_village) %></li>
+
+<hr />
+  <h5>Send Resource</h5>
+  <div>
+    <% my_village.send_resource_schedules.each do |srs| %>
+      <% if srs %>
+        <table>
+          <thead>
+              <tr>
+                <td>t_x</td>
+                <td>t_y</td>
+                <td>Gỗ</td>
+                <td>Đất</td>
+                <td>Sắt</td>
+                <td>Lúa</td>
+                <td rowspan="2">
+                  <%= link_to [my_village, srs], method: :delete,
+                    data: {confirm: "bạn có thực sự muốn xóa ID này?"} do %>
+                    <span class="glyphicon glyphicon-remove-sign" style="color: red;"></span>
+                  <% end %>
+                </td>
+              </tr>
+          </thead>
+          <tbody>
+              <tr>
+                <td><%= srs.target_x %></td>
+                <td><%= srs.target_y %></td>
+                <td><%= srs.wood %></td>
+                <td><%= srs.clay %></td>
+                <td><%= srs.iron %></td>
+                <td><%= srs.paddy %></td>
+              </tr>
+          </tbody>
+        </table>
+      <% end %>
+    <% end %>
+    <li><%= link_to "add", new_my_village_send_resource_schedule_path(my_village) %></li>
+  </div>
 </td>
