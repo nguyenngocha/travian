@@ -18,10 +18,10 @@
         <tr>
           <td><%= f.number_field :target_x, in: -400..400 %></td>
           <td><%= f.number_field :target_y, in: -400..400 %></td>
-          <td><%= f.number_field :wood, in: 1..100000 %></td>
-          <td><%= f.number_field :clay, in: 1..100000 %></td>
-          <td><%= f.number_field :iron, in: 1..100000 %></td>
-          <td><%= f.number_field :paddy, in: 1..100000 %></td>
+          <td><%= f.number_field :wood, in: 0..100000 %></td>
+          <td><%= f.number_field :clay, in: 0..100000 %></td>
+          <td><%= f.number_field :iron, in: 0..100000 %></td>
+          <td><%= f.number_field :paddy, in: 0..100000 %></td>
           <td><%= f.number_field :market_id, in: 18..40 %></td>
         </tr>
     </tbody>
