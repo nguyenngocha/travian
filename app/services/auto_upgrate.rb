@@ -20,7 +20,7 @@ class AutoUpgrate
     response = RestClient.get "https://ts6.travian.com.vn/#{@link_id}", cookies: @cookies
     response = Nokogiri::HTML response
     link = response.css("#content #build button").first
-    link = link.attr("onclick").match(/'([^']+)'/)[1] unless link.nil?
+    link = link.attr("onclick").match(/'([^']+)'/)[1] if link.present?
     if link == "disabled"
       puts "resource exhausted"
       return false

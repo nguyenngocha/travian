@@ -1,6 +1,6 @@
 namespace :job do
   desc "TODO"
-  task auto_upgrate_random_dorf1: :environment do
+  task upgrate: :environment do
     user = User.first
     @cookies = Hash.new
     @cookies["T3E"] = user.t3e
