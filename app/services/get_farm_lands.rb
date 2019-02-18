@@ -43,12 +43,14 @@ class GetFarmLands
     else
       if ppls.to_i < 100
         kbss = 2
+      elsif ppls.to_i < 150
+        kbss = 3
       elsif ppls.to_i < 200
-        kbss = ppls.to_i*2/75
-      elsif ppls.to_i < 500
-        kbss = ppls.to_i/35
+        kbss = 5
+      elsif ppls.to_i<280
+        kbss = ppls.to_i/30
       else
-        kbss = 15
+        return
       end
         Land.create coordinate_x: loop_x , coordinate_y: loop_y, army4: kbss, my_village_id: @myvillage.id
         puts "true"
