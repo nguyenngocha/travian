@@ -16,11 +16,11 @@ class Farms
     if page.css("div#header ul#navigation").empty? #kiem tra tinh trang dang nhap
       puts "Da bi dang xuat(farm.rb)"
       puts "#{Time.zone.now.strftime("%Y-%m-%d %H:%M:%S")}"
-      sleep 1
+      sleep 0.25 + rand*0.25
       logout_res = RestClient.get "https://ts6.travian.com.vn"
       logout_page = Nokogiri::HTML logout_res
       login = logout_page.css("input[name='login'] @value").text
-      sleep 1
+      sleep 0.25 + rand*0.25
       @login_res = RestClient.post "https://ts6.travian.com.vn/dorf1.php",
         {name: @myvillage.user.name, password: @myvillage.user.password,
         s1: "Đăng+nhập", w: "1366:768", login: login, lowRes: "0"}
@@ -60,9 +60,9 @@ class Farms
   def can_farm?
     responses = RestClient.get("https://ts6.travian.com.vn/position_details.php?x=#{@land.coordinate_x}&y=#{@land.coordinate_y}", cookies: {"T3E" => @cookies["T3E"], "lowRes" => "0", "sess_id" => @cookies["sess_id"]})
     page = Nokogiri::HTML responses
-    sleep 0.5
+    sleep 0.1 + rand*0.1
     first_farm_history = page.css(".instantTabs tr td")[0]
-    
+
     unless first_farm_history.present?
       return false
     end
@@ -90,7 +90,7 @@ class Farms
 
     if check_number_army?
       if !@b.nil?
-        sleep 1
+        sleep 0.25 + rand*0.25
         # gui request2, vao trang "xac nhan"
         response1 = RestClient.post("https://ts6.travian.com.vn/build.php?id=39&tt=2",
           {timestamp: @timestamp, timestamp_checksum: @timestamp_checksum,
