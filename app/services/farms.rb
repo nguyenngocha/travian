@@ -42,7 +42,7 @@ class Farms
         @land.army8 > @current_armies[6].css("a[href= '#']").text[1...-1].to_i ||
         @land.army9 > @current_armies[3].css("a[href= '#']").text[1...-1].to_i ||
         @land.army10 > @current_armies[7].css("a[href= '#']").text[1...-1].to_i
-        raise "het linh"
+        puts "het linh"
         false
       else
         @timestamp = page.css("input[name='timestamp'] @value").text
@@ -85,7 +85,7 @@ class Farms
       raise 'Stop this turn'  
     end
     unless can_farm? 
-      return false
+      return "skip"
     end
 
     if check_number_army?
@@ -132,22 +132,22 @@ class Farms
               if [301, 302, 307].include? response.code
               end
             }
-          return true
+          return "true"
         elsif !page.css("p.error").empty? && (page.css("p.error").text == "Không có làng nào ở tọa độ này" ||
           page.css("p.error").text == "Bạn không thể gửi lính tới người chơi khác khi họ đang trong chế độ kỳ nghỉ.")
           @land.update_attributes! my_village_id: nil, user_id: nil
           puts "#{@land.coordinate_x}|#{@land.coordinate_y} vung dat bo hoang"
-          return true
+          return "false"
         elsif !page.css("p.error").empty? && (page.css("p.error").text == "làng của tướng đã được thay đổi." ||
           page.css("p.error").text == "Bạn chưa lựa chọn quân nào cả")
           puts "#{@land.coordinate_x}|#{@land.coordinate_y}: Loi step 1"
-          return true
+          return "false"
         end
       else
-        return true
+        return "false"
       end
     else
-      return false
+      return "false"
     end
   end
 end

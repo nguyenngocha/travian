@@ -22,7 +22,7 @@ class GetFarmLands
         counter += 1
         loop_y += 1
         process = "#{counter}/#{total}"
-        print "#{loop_x}|#{loop_y} - #{process}/r"
+        puts "#{loop_x}|#{loop_y} - #{process}\r"
         if((@myvillage.coordinate_x - loop_x)**2 + (@myvillage.coordinate_y - loop_y)**2 > @farm_coordinate**2 )
           next
         end

@@ -30,15 +30,12 @@ class MyVillage < ApplicationRecord
 
   private
   def farm_for_land land, cookies, active
-    if Farms.new(cookies, self, land, active).send_request
-      puts "#{name}: farm success (#{land.coordinate_x}|#{land.coordinate_y}), distance: #{land.distance},
-        #{land.army1}-#{land.army2}-#{land.army3}-#{land.army4}-#{land.army5}-#{land.army6}-#{land.army7}-#{land.army8}-#{land.army9}-#{land.army10}-#{land.army11}"
-      return true
-    else
-      puts "#{name}: farm fail (#{land.coordinate_x}|#{land.coordinate_y}), distance: #{land.distance},
-        #{land.army1}-#{land.army2}-#{land.army3}-#{land.army4}-#{land.army5}-#{land.army6}-#{land.army7}-#{land.army8}-#{land.army9}-#{land.army10}-#{land.army11}"
-      return true
-    end
+    result = Farms.new(cookies, self, land, active).send_request
+    puts "#{name}: farm #{result} (#{land.coordinate_x}|#{land.coordinate_y}), distance: #{land.distance},
+      #{land.army1}-#{land.army2}-#{land.army3}-#{land.army4}-#{land.army5}-#{land.army6}-#{land.army7}-#{land.army8}-#{land.army9}-#{land.army10}-#{land.army11}"
+
+    return false if result == "false"
+    return true
   end
 
   def farm_for_oasis oasis, cookies, active
