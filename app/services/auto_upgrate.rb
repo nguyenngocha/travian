@@ -21,6 +21,7 @@ class AutoUpgrate
     response = Nokogiri::HTML response
     link = response.css("#content #build button").first
     link = link.attr("onclick").match(/'([^']+)'/)[1] if link.present?
+    puts link
     if link == "disabled"
       puts "resource exhausted"
       return false
