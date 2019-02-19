@@ -35,8 +35,7 @@ namespace :db do
     active = rand(1..1000)
     user.update_attributes! active: active
     puts "Active: #{user.active}"
-    GetFarmLands.new(@cookies, user.my_villages.first, 5).get
-    GetFarmLands.new(@cookies, user.my_villages.second, 5).get
+    GetFarmLands.new(@cookies, user.my_villages.second, 20, 25).get
     # get distance a to b
 
     system "whenever --update-crontab --set environment=development"

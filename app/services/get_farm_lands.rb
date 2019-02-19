@@ -2,28 +2,38 @@ class GetFarmLands
   require "rest-client"
   require "nokogiri"
 
-  def initialize cookies, myvillage, farm_coordinate
+  def initialize cookies, myvillage, c_start, c_end
     @cookies = cookies
     @myvillage = myvillage
-    @farm_coordinate = farm_coordinate
+    @c_start = c_start
+    @c_end = c_end
   end
 
   def get
-    @myvillage.lands.delete_all
+    @myvillage.lands.each do |land|
+      if land.distance > @c_start && land.distance <= @c_end
+        puts "delete #{land.coordinate_x}|#{land.coordinate_y}|#{land.distance}"
+        land.destroy
+      end
+    end
     counter = 0
-    total = (@farm_coordinate*2 + 1) ** 2
-    loop_x = @myvillage.coordinate_x - @farm_coordinate
-    loop_y = @myvillage.coordinate_y - @farm_coordinate
+    total = (@c_end*2 + 1) ** 2
+    loop_x = @myvillage.coordinate_x - @c_end
+    loop_y = @myvillage.coordinate_y - @c_end
 
-    while loop_x < @myvillage.coordinate_x + @farm_coordinate
-      loop_y = @myvillage.coordinate_y - @farm_coordinate
+    while loop_x < @myvillage.coordinate_x + @c_end
+      loop_y = @myvillage.coordinate_y - @c_end
 
-      while loop_y < @myvillage.coordinate_y + @farm_coordinate
+      while loop_y < @myvillage.coordinate_y + @c_end
         counter += 1
         loop_y += 1
         process = "#{counter}/#{total}"
         puts "#{loop_x}|#{loop_y} - #{process}\r"
-        if((@myvillage.coordinate_x - loop_x)**2 + (@myvillage.coordinate_y - loop_y)**2 > @farm_coordinate**2 )
+        if (@myvillage.coordinate_x - loop_x)**2 + (@myvillage.coordinate_y - loop_y)**2 > @c_end**2
+          next
+        end
+        
+        if (@myvillage.coordinate_x - loop_x)**2 + (@myvillage.coordinate_y - loop_y)**2 < @c_start**2
           next
         end
         check_farm loop_x, loop_y, process
