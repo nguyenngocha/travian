@@ -30,8 +30,6 @@ namespace :job do
         break
       end
     end
-    active = rand(1..1000)
-    user.update_attributes! active: active
     puts "Active: #{user.active}"
 
     user.my_villages.each do |my_village|

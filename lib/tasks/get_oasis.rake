@@ -31,8 +31,6 @@ namespace :db do
         break
       end
     end
-    active = rand(1..1000)
-    user.update_attributes! active: active
     puts "Active: #{user.active}"
 
     MyVillage.find(1).oasises.destroy_all

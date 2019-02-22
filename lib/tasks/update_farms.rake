@@ -1,7 +1,6 @@
 namespace :db do
   desc "TODO"
   task update_farms: :environment do
-    system "crontab -r"
     user = User.first
     @cookies = Hash.new
     @cookies["T3E"] = user.t3e
@@ -32,13 +31,8 @@ namespace :db do
         break
       end
     end
-    active = rand(1..1000)
-    user.update_attributes! active: active
     puts "Active: #{user.active}"
     GetFarmLands.new(@cookies, user.my_villages.second, 20, 25).get
     # get distance a to b
-
-    system "whenever --update-crontab --set environment=development"
-    system "cd /home/ubuntu/workspace && RAILS_ENV=development bundle exec rake job:farm_all"
   end
 end

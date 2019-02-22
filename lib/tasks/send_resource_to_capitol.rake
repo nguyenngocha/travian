@@ -31,13 +31,11 @@ namespace :job do
         break
       end
     end
-    active = rand(1..1000)
-    user.update_attributes! active: active
     puts "Active: #{user.active}"
 
     user.my_villages.each do |my_village|
       my_village.send_resource_schedules.each do |send_resource|
-        SendResource.new(@cookies, my_village, active, send_resource).execute
+        SendResource.new(@cookies, my_village, user.active, send_resource).execute
       end
     end
   end
