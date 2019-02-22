@@ -76,6 +76,7 @@ class FarmOasis
     end
 
     unless oasis_clean?
+      puts "skip"
       return true
     end
 
@@ -123,6 +124,7 @@ class FarmOasis
               if [301, 302, 307].include? response.code
               end
             }
+            puts "ok"
           return true
         elsif !page.css("p.error").empty? && (page.css("p.error").text == "Không có làng nào ở tọa độ này" ||
           page.css("p.error").text == "Bạn không thể gửi lính tới người chơi khác khi họ đang trong chế độ kỳ nghỉ.")
