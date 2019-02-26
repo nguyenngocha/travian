@@ -61,6 +61,12 @@ class Farms
     responses = RestClient.get("https://ts6.travian.com.vn/position_details.php?x=#{@land.coordinate_x}&y=#{@land.coordinate_y}", cookies: {"T3E" => @cookies["T3E"], "lowRes" => "0", "sess_id" => @cookies["sess_id"]})
     page = Nokogiri::HTML responses
     sleep 0.1 + rand*0.1
+
+    if page.css(".titleInHeader").text.include? "ốc đảo"
+      @land.destroy
+      return false
+    end
+
     first_farm_history = page.css(".instantTabs tr td")[0]
 
     unless first_farm_history.present?
@@ -71,9 +77,15 @@ class Farms
     unless first_farm_history.present?
       return false
     end
+    
+    report = first_farm_history.attr("class").to_s.split(" ")[1]
 
-    if first_farm_history.attr("class").to_s.split(" ")[1] == "iReport1"
-      puts first_farm_history.attr("class")
+    if report == "iReport3" || report == "iReport2"
+      @land.destroy
+      return false
+    end
+
+    if report == "iReport1"
       return true
     end
     return false
