@@ -32,7 +32,9 @@ namespace :db do
       end
     end
     puts "Active: #{user.active}"
-    GetFarmLands.new(@cookies, user.my_villages.second, 0, 20).get
+    GetFarmLands.new(@cookies, user.my_villages.second, 20, 30).get
+    GetFarmLands.new(@cookies, user.my_villages.second, 30, 40).get
+    GetFarmLands.new(@cookies, user.my_villages.second, 40, 60).get
     # get distance a to b
   end
 end
