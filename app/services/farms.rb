@@ -62,7 +62,7 @@ class Farms
     page = Nokogiri::HTML responses
     sleep 0.1 + rand*0.1
 
-    if page.css(".titleInHeader").text.include? "ốc đảo"
+    if page.css(".titleInHeader").text.downcase.include? "ốc đảo"
       puts "destroy #{@land.coordinate_x}|#{@land.coordinate_y}"
       @land.destroy
       return false
