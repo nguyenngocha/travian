@@ -10,10 +10,6 @@ class RandomUpgrateOutDorf
 
   def send_request
     @user = User.find_by id: @myvillage.user_id
-    if @user.active != @active
-      puts "Stop this turn"
-      return false
-    end
 
     if can_upgrate?
       # chen them code upgrate uu tien vao day.
@@ -26,9 +22,7 @@ class RandomUpgrateOutDorf
         flag = upgrate
       else
         link_id = get_id_building_enough_resource
-        myvillage = @myvillage.link
-        myvillage.slice!(0)
-        link_id = link_id.insert(10, myvillage) if link_id
+        link_id = "build.php#{@myvillage.link}id=#{link_id}"
       end
 
       puts link_id
@@ -60,12 +54,12 @@ class RandomUpgrateOutDorf
     response = RestClient.get "https://ts6.travian.com.vn/dorf1.php#{@myvillage.link}", cookies: @cookies
     response = Nokogiri::HTML response
     can_upgrate_buildings = Array.new
-    response.css("#content area").each do |area|
-      title = area.attr("title")
-      title = Nokogiri::HTML title
-      puts title
-      if title.css(".showCosts").present?
-        can_upgrate_buildings << area.attr("href").to_s
+    builds = response.css("#village_map div.level")
+
+puts builds
+    (0...17).each do |i|
+      if builds[i].attr("class").to_s.include? "good"
+        can_upgrate_buildings << i+1
       end
     end
     return can_upgrate_buildings.sample

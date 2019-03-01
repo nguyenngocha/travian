@@ -16,10 +16,21 @@ class CreateTroop
       return false
     end
 
-    if @troop_schedule.troop_id < 3
+  if @user.race == "gauls"
+    max_bb = 2
+  elsif @user.race == "romans"
+    max_bb = 3
+  elsif @user.race == "romans"
+    max_bb = 4
+  end
+
+    if @troop_schedule.troop_id <= max_bb
       gid = 19
-    elsif @troop_schedule.troop_id < 7
+    elsif @troop_schedule.troop_id <= 6
       gid = 20
+    else
+      puts "khong ho tro de quan khac"
+      return false
     end
 
     link = "https://ts6.travian.com.vn/build.php#{@myvillage.link}&id=#{@troop_schedule.build_id}&gid=#{gid}"
@@ -30,6 +41,7 @@ class CreateTroop
 
     puts trainUnits
     if @troop_schedule.troop_number > trainUnits
+      puts "training that bai"
       return false
     end
 
@@ -37,7 +49,5 @@ class CreateTroop
     puts link
     z_value = response.at("form input[name=z]")["value"]
     response = RestClient.post(link, {id: @troop_schedule.build_id.to_s, a: "2", s: "1", z: z_value, "t#{@troop_schedule.troop_id.to_s}": @troop_schedule.troop_number.to_s, s1: "ok"}, cookies: @cookies)
-
-    TroopSchedule.delete @troop_schedule if @troop_schedule
   end
 end

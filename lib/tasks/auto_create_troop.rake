@@ -33,8 +33,8 @@ namespace :create do
     puts "Active: #{user.active}"
 
     user.my_villages.each do |my_village|
-      if my_village.troop_schedules.size > 0
-        CreateTroop.new(@cookies, my_village, user.active, my_village.troop_schedules.first).execute
+      my_village.troop_schedules.each do |ts|
+        CreateTroop.new(@cookies, my_village, user.active, ts).execute
       end
     end
   end
