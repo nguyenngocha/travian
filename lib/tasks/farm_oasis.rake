@@ -35,8 +35,6 @@ namespace :job do
     user.update_attributes! active: active
     puts "Active: #{user.active}"
 
-    user.my_villages.each do |my_village|
-      my_village.farm_for_v_oasis @cookies, user.active
-    end
+    user.my_villages.first.farm_for_v_oasis @cookies, user.active
   end
 end
