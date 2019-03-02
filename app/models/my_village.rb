@@ -27,7 +27,7 @@ class MyVillage < ApplicationRecord
   end
 
   def training_hero cookies, active
-    @oasises = oasises.shuffle
+    @oasises = oasises.sort_by {|land| land.distance}
     @hero_dame = Hero.new(cookies).get_dame
     @oasises.each do |oasis|
       print "training hero (#{@hero_dame}) in (#{oasis.coordinate_x}, #{oasis.coordinate_y}) : "
