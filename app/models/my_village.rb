@@ -15,7 +15,6 @@ class MyVillage < ApplicationRecord
     @lands = lands.shuffle
     @lands.each do |land|
       break unless farm_for_land land, cookies, active
-      sleep rand*1
     end
   end
 
@@ -24,7 +23,15 @@ class MyVillage < ApplicationRecord
     @oasises.each do |oasis|
       print "farm oasise (#{oasis.coordinate_x}, #{oasis.coordinate_y}) : "
       break unless farm_for_oasis oasis, cookies, active
-      sleep rand*1
+    end
+  end
+
+  def training_hero cookies, active
+    @oasises = oasises.shuffle
+    @hero_dame = Hero.new(cookies).get_dame
+    @oasises.each do |oasis|
+      print "training hero (#{@hero_dame}) in (#{oasis.coordinate_x}, #{oasis.coordinate_y}) : "
+      break unless TrainingHero.new(cookies, self, oasis, active, @hero_dame).send_request
     end
   end
 

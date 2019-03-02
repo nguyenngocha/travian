@@ -1,6 +1,6 @@
-namespace :db do
+namespace :job do
   desc "TODO"
-  task get_oasis: :environment do
+  task training_hero: :environment do
     user = User.first
     @cookies = Hash.new
     @cookies["T3E"] = user.t3e
@@ -33,12 +33,6 @@ namespace :db do
     end
     puts "Active: #{user.active}"
 
-    user.my_villages.second.oasises.destroy_all
-    GetOasis.new(@cookies, user.my_villages.second, 20).get
-    # get distance a to b
-    # user.my_villages.each do |my_village|
-    #   puts "#{my_village.name}::#{Time.zone.now.strftime("%Y-%m-%d %H:%M:%S")}"
-    #   my_village.farm_for_village @cookies, user.active
-    # end
+    user.my_villages.second.training_hero @cookies, user.active
   end
 end
