@@ -29,6 +29,10 @@ class MyVillage < ApplicationRecord
   def training_hero cookies, active
     @oasises = oasises.sort_by {|land| land.distance}
     @hero_dame = Hero.new(cookies).get_dame
+    if @hero_dame == 0
+      puts "hero khong co trong thanh"
+      return
+    end
     @oasises.each do |oasis|
       print "training hero (#{@hero_dame}) in (#{oasis.coordinate_x}, #{oasis.coordinate_y}) : "
       break unless TrainingHero.new(cookies, self, oasis, active, @hero_dame).send_request

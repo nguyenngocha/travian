@@ -59,13 +59,13 @@ class TrainingHero
     elsif unit == "u36"
       return number*70
     elsif unit == "u37"
-      return number*200
+      return number*200*100
     elsif unit == "u38"
-      return number*240
+      return number*240*100
     elsif unit == "u39"
-      return number*250
+      return number*250*100
     else 
-      return number*520
+      return number*520*100
     end
   end
 
