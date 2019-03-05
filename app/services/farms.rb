@@ -81,7 +81,7 @@ class Farms
     
     report = first_farm_history.attr("class").to_s.split(" ")[1]
 
-    if report == "iReport3" || report == "iReport2"
+    if report == "iReport2"
       puts "destroy #{@land.coordinate_x}|#{@land.coordinate_y}"
       @land.destroy
       return false
