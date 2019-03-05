@@ -17,7 +17,7 @@ class TrainingHero
     page = Nokogiri::HTML responses
 
     if page.css(".titleInHeader").text.downcase.include? "đã bị chiếm"
-      puts "da bi chiem #{@land.coordinate_x}|#{@land.coordinate_y}"
+      puts "da bi chiem #{@oasise.coordinate_x}|#{@oasise.coordinate_y}"
       @land.destroy
       return false
     end
