@@ -37,7 +37,7 @@ class TrainingHero
     end
     puts target_def
     puts @hero_dame
-    if  200 < target_def and target_def < @hero_dame/5
+    if @hero_dame/15 < target_def and target_def < @hero_dame/5
       puts "true"
       return true
     end
