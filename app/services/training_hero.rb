@@ -18,7 +18,7 @@ class TrainingHero
 
     if page.css(".titleInHeader").text.downcase.include? "đã bị chiếm"
       puts "da bi chiem #{@oasise.coordinate_x}|#{@oasise.coordinate_y}"
-      @land.destroy
+      @oasise.destroy
       return false
     end
 
