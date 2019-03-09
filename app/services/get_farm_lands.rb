@@ -59,7 +59,7 @@ class GetFarmLands
     elsif ppls.to_i<280
       kbss = ppls.to_i/30
     else
-      return
+      kbss = 15
     end
     Land.create coordinate_x: loop_x , coordinate_y: loop_y, army4: kbss, my_village_id: @myvillage.id
     puts "Land.create coordinate_x: #{loop_x}, coordinate_y: #{loop_y}, army4: #{kbss}, my_village_id: #{@myvillage.id}"
