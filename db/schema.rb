@@ -149,6 +149,7 @@ ActiveRecord::Schema.define(version: 20190217071627) do
     t.string   "lowres"
     t.string   "sess_id"
     t.integer  "active"
+    t.string   "server"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end

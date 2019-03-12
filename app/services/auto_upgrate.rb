@@ -17,12 +17,12 @@ class AutoUpgrate
     end
 
     sleep 0.25
-    response = RestClient.get "https://ts6.travian.com.vn/#{@link_id}", cookies: @cookies
+    response = RestClient.get "#{@user.server}/#{@link_id}", cookies: @cookies
     response = Nokogiri::HTML response
     link = response.css("#content #build button").first.attr("onclick")
     link = link.match(/'([^']+)'/)[1] if link.present?
     if link.present?
-      link = "https://ts6.travian.com.vn/" + link
+      link = "#{@user.server}/" + link
       response = RestClient.get link, cookies: @cookies
       puts "success"
       return true

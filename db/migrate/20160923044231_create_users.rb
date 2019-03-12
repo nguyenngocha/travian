@@ -9,6 +9,7 @@ class CreateUsers < ActiveRecord::Migration[5.0]
       t.string :lowres
       t.string :sess_id
       t.integer :active
+      t.string :server
 
       t.timestamps
     end

@@ -12,7 +12,7 @@ class UpdateDatabases
   end
 
   def create_resource href, myvillage
-    response = RestClient.get("https://ts6.travian.com.vn/dorf1.php" + href.value,
+    response = RestClient.get("#{user.server}/dorf1.php" + href.value,
       cookies: {"T3E" => @cookies["T3E"], "lowRes" => "0", "sess_id" => @cookies["sess_id"]})
     page = Nokogiri::HTML(response)
     return false if check_login? page
@@ -69,7 +69,7 @@ class UpdateDatabases
     hrefs.each do |href|
       if href.value.starts_with? "?newdid"
         sleep 1
-        response = RestClient.get("https://ts6.travian.com.vn/dorf1.php" + href.value,
+        response = RestClient.get("#{user.server}/dorf1.php" + href.value,
           cookies: {"T3E" => user.t3e, "lowRes" => "0", "sess_id" => user.sess_id})
         @dorf1 = Nokogiri::HTML response
 
@@ -85,13 +85,13 @@ class UpdateDatabases
     end
   end
 
-  def load_user name, password, race
+  def load_user server, name, password, race
     user = User.find_by name: name
     if user
       load_my_village user
       # update thong tin
     else
-      user = User.create! name: name, password: password, race: race, t3e: @cookies["T3E"], sess_id: @cookies["sess_id"]
+      user = User.create! server: server, name: name, password: password, race: race, t3e: @cookies["T3E"], sess_id: @cookies["sess_id"]
       load_my_village user
       # tao moi 1 user
     end

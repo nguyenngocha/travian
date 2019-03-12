@@ -8,7 +8,7 @@ class UpgrateSchedulesController < ApplicationController
 
   def create
     @upgrate_building = @village.upgrate_schedules.new upgrate_building_params
-    
+
     if @upgrate_building.save
       flash[:success] = "add success"
       redirect_to my_villages_path

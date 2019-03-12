@@ -26,6 +26,14 @@ class MyVillage < ApplicationRecord
     end
   end
 
+  def update_inner_list
+    return upgrate_schedules.where("upgrate_id >= ? and upgrate_id <= ?", 19, 40)
+  end
+  
+  def update_outer_list
+    return upgrate_schedules.where("upgrate_id <= ?", 18)
+  end
+
   def training_hero cookies, active
     @oasises = oasises.sort_by {|land| land.distance}
     @hero_dame = Hero.new(cookies).get_dame
