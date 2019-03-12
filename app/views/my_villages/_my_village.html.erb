@@ -1,5 +1,5 @@
 <td>
-  <div>
+  <div class="col-sm-12 col-md-12">
     <h5>Upgrates</h5>
     <div class="col-sm-6 col-md-6">
       <h7>Inner</h7>
@@ -25,9 +25,10 @@
         </li>
       <% end %>
     </div>
-    <li><%= link_to "add", new_my_village_upgrate_schedule_path(my_village) %></li>
   </div>
-
+<hr />
+<br />
+<%= link_to "add", new_my_village_upgrate_schedule_path(my_village) %>
 <hr />
 
   <h5>Troops</h5>
@@ -44,7 +45,7 @@
      </li>
     <% end %>
   </div>
-  <li><%= link_to "add", new_my_village_troop_schedule_path(my_village) %></li>
+  <%= link_to "add", new_my_village_troop_schedule_path(my_village) %>
 
 <hr />
   <h5>Send Resource</h5>
@@ -81,6 +82,6 @@
         </table>
       <% end %>
     <% end %>
-    <li><%= link_to "add", new_my_village_send_resource_schedule_path(my_village) %></li>
+    <%= link_to "add", new_my_village_send_resource_schedule_path(my_village) %>
   </div>
 </td>

@@ -24,8 +24,6 @@ class RandomUpgrateOutDorf
       flag = upgrate
       if can_upgrate? page, upgrate.upgrate_id
         link_id = upgrate.upgrate_id
-      else
-        puts "dang upgrate hoac khong du tai nguyen"
       end
     else
       link_id = get_id_building_enough_resource page
@@ -46,7 +44,6 @@ class RandomUpgrateOutDorf
   private
   def can_upgrate? page, id
     builds = page.css("#village_map div.level")
-    puts builds[id-1].attr("class").to_s
     if builds[id-1].attr("class").to_s.include? "good"
       return true
     else
