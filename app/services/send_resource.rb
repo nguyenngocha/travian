@@ -7,14 +7,15 @@ class SendResource
     @myvillage = myvillage
     @active = active
     @send_resource = send_resource
+    @user = myvillage.user
   end
 
   def execute
-    puts "https://ts6.travian.com.vn/build.php#{@myvillage.link}&id=#{@send_resource.market_id}&t=5&gid=17"
-    response = RestClient.get "https://ts6.travian.com.vn/build.php#{@myvillage.link}&id=#{@send_resource.market_id}&gid=17", cookies: @cookies
+    puts "#{@user.server}/build.php#{@myvillage.link}&id=#{@send_resource.market_id}&t=5&gid=17"
+    response = RestClient.get "#{@user.server}/build.php#{@myvillage.link}&id=#{@send_resource.market_id}&gid=17", cookies: @cookies
     page = Nokogiri::HTML response
 
-    link = "https://ts6.travian.com.vn/ajax.php?cmd=prepareMarketplace"
+    link = "#{@user.server}/ajax.php?cmd=prepareMarketplace"
     @ajaxToken = page.css("head > script:nth-child(21)").to_s.split("return")[1].split("'")[1]
     puts "RestClient.post(link, {cmd: prepareMarketplace, r1: #{@send_resource.wood}, r2: #{@send_resource.clay}, r3: #{@send_resource.iron}, r4: #{@send_resource.paddy},
       dname: ,x: #{@send_resource.target_x}, y: #{@send_resource.target_y}, id: #{@send_resource.market_id}, t: 5, x2: 1, ajaxToken: #{@ajaxToken}}, cookies: @cookies)"

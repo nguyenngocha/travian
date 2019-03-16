@@ -8,10 +8,11 @@ class TrainingHero
     @oasise = oasise
     @active = active
     @hero_dame = hero_dame
+    @user = myvillage.user
   end
 
   def oasis_clean?
-    responses = RestClient.get("https://ts6.travian.com.vn/position_details.php?x=#{@oasise.coordinate_x}&y=#{@oasise.coordinate_y}",
+    responses = RestClient.get("#{@user.server}/position_details.php?x=#{@oasise.coordinate_x}&y=#{@oasise.coordinate_y}",
       cookies: {"T3E" => @cookies["T3E"], "lowRes" => "0", "sess_id" => @cookies["sess_id"]})
     sleep 0.25 + rand*0.5
     page = Nokogiri::HTML responses
@@ -70,7 +71,7 @@ class TrainingHero
   end
 
   def check_number_army?
-    response = RestClient.get("https://ts6.travian.com.vn/build.php" + @myvillage.link + "id=39&tt=2&gid=16",
+    response = RestClient.get("#{@user.server}/build.php" + @myvillage.link + "id=39&tt=2&gid=16",
       cookies: @cookies)
     sleep 0.25 + rand*0.5
 
@@ -78,12 +79,12 @@ class TrainingHero
     if page.css("div#header ul#navigation").empty? #kiem tra tinh trang dang nhap
       puts "Da bi dang xuat(farm.rb)"
       puts "#{Time.zone.now.strftime("%Y-%m-%d %H:%M:%S")}"
-      logout_res = RestClient.get "https://ts6.travian.com.vn"
+      logout_res = RestClient.get "#{@user.server}"
       sleep 1
 
       logout_page = Nokogiri::HTML logout_res
       login = logout_page.css("input[name='login'] @value").text
-      @login_res = RestClient.post "https://ts6.travian.com.vn/dorf1.php",
+      @login_res = RestClient.post "#{@user.server}/dorf1.php",
         {name: @myvillage.user.name, password: @myvillage.user.password,
         s1: "Đăng+nhập", w: "1366:768", login: login, lowRes: "0"}
       sleep 1
@@ -142,7 +143,7 @@ class TrainingHero
     if check_number_army?
       if !@b.nil?
         # gui request2, vao trang "xac nhan"
-        response1 = RestClient.post("https://ts6.travian.com.vn/build.php?id=39&tt=2",
+        response1 = RestClient.post("#{@user.server}/build.php?id=39&tt=2",
           {timestamp: @timestamp, timestamp_checksum: @timestamp_checksum,
           b: @b, currentDid: @myvillage.link.split(/[^\d]/).join, t1: @oasise.army1.to_s,
           t2: @oasise.army2.to_s, t3: @oasise.army3.to_s, t4: @oasise.army4.to_s, t5: @oasise.army5.to_s,
@@ -152,7 +153,7 @@ class TrainingHero
         page = Nokogiri::HTML response1
         if !page.css("table#short_info").empty? #gui request 2 thanh coong
           # gui request "xac nhan"
-          response = RestClient.post("https://ts6.travian.com.vn/build.php?id=39&tt=2",
+          response = RestClient.post("#{@user.server}/build.php?id=39&tt=2",
             {redeployHero: page.css("input[name='redeployHero'] @value").text,
             timestamp: page.css("input[name='timestamp'] @value").text,
             timestamp_checksum: page.css("input[name='timestamp_checksum'] @value").text,
