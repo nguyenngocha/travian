@@ -7,6 +7,7 @@ class GetFarmLands
     @myvillage = myvillage
     @c_start = c_start
     @c_end = c_end
+    @user = myvillage.user
   end
 
   def get
@@ -20,15 +21,13 @@ class GetFarmLands
     total = (@c_end*2 + 1) ** 2
     loop_x = @myvillage.coordinate_x - @c_end
     loop_y = @myvillage.coordinate_y - @c_end
+    checkList = Array.new
 
     while loop_x < @myvillage.coordinate_x + @c_end
       loop_y = @myvillage.coordinate_y - @c_end
 
       while loop_y < @myvillage.coordinate_y + @c_end
-        counter += 1
         loop_y += 1
-        process = "#{counter}/#{total}"
-        puts "#{loop_x}|#{loop_y} - #{process}\r"
         if (@myvillage.coordinate_x - loop_x)**2 + (@myvillage.coordinate_y - loop_y)**2 > @c_end**2
           next
         end
@@ -36,14 +35,18 @@ class GetFarmLands
         if (@myvillage.coordinate_x - loop_x)**2 + (@myvillage.coordinate_y - loop_y)**2 < @c_start**2
           next
         end
-        check_farm loop_x, loop_y, process
+        checkList << [loop_x, loop_y]
       end
       loop_x += 1
     end
+
+    checkList.shuffle.each do |x, y|
+      check_farm x, y
+    end
   end
 
-  def check_farm loop_x, loop_y, process
-    responses = RestClient.get("https://ts6.travian.com.vn/position_details.php?x=#{loop_x}&y=#{loop_y}", cookies: {"T3E" => @cookies["T3E"], "lowRes" => "0", "sess_id" => @cookies["sess_id"]})
+  def check_farm loop_x, loop_y
+    responses = RestClient.get("#{@user.server}/position_details.php?x=#{loop_x}&y=#{loop_y}", cookies: {"T3E" => @cookies["T3E"], "lowRes" => "0", "sess_id" => @cookies["sess_id"]})
     page = Nokogiri::HTML responses
     sleep rand*0.5 + 0.2
       ppls = population page
@@ -61,8 +64,8 @@ class GetFarmLands
     else
       kbss = 15
     end
-    Land.create coordinate_x: loop_x , coordinate_y: loop_y, army4: kbss, my_village_id: @myvillage.id
-    puts "Land.create coordinate_x: #{loop_x}, coordinate_y: #{loop_y}, army4: #{kbss}, my_village_id: #{@myvillage.id}"
+    Land.create coordinate_x: loop_x , coordinate_y: loop_y, army5: kbss, my_village_id: @myvillage.id
+    puts "Land.create coordinate_x: #{loop_x}, coordinate_y: #{loop_y}, army5: #{kbss}, my_village_id: #{@myvillage.id}"
   end
 
   def population page
@@ -83,8 +86,8 @@ class GetFarmLands
   end
 
   # def is_farm_oasis? x, y
-  #   # https://ts6.travian.com.vn/karte.php?newdid=30788&x=-46&y=18
-  #   responses = RestClient.get("https://ts6.travian.com.vn/position_details.php?x=#{x}&y=#{y}", cookies: {"T3E" => @cookies["T3E"], "lowRes" => "0", "sess_id" => @cookies["sess_id"]})
+  #   # #{@user.server}/karte.php?newdid=30788&x=-46&y=18
+  #   responses = RestClient.get("#{@user.server}/position_details.php?x=#{x}&y=#{y}", cookies: {"T3E" => @cookies["T3E"], "lowRes" => "0", "sess_id" => @cookies["sess_id"]})
   #   data = Nokogiri::HTML responses
   #   if data.css(".titleInHeader").text.include? "ốc đảo bỏ hoang"
   #     true

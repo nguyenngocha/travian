@@ -8,16 +8,16 @@ namespace :db do
     @cookies["sess_id"] = user.sess_id
     # check login
     (1..3).each do
-      response = RestClient.get "https://ts6.travian.com.vn/dorf1.php", cookies: @cookies
+      response = RestClient.get "#{user.server}/dorf1.php", cookies: @cookies
       page = Nokogiri::HTML response
       if page.css("div#header ul#navigation").empty?
         puts "Da bi dang xuat"
         puts "#{Time.zone.now.strftime("%Y-%m-%d %H:%M:%S")}"
         sleep 0.5
-        logout_res = RestClient.get "https://ts6.travian.com.vn"
+        logout_res = RestClient.get "#{user.server}"
         logout_page = Nokogiri::HTML logout_res
         login = logout_page.css("input[name='login'] @value").text
-        @login_res = RestClient.post "https://ts6.travian.com.vn/dorf1.php",
+        @login_res = RestClient.post "#{user.server}/dorf1.php",
           {name: user.name, password: user.password,
           s1: "Đăng+nhập", w: "1366:768", login: login, lowRes: "0"}
         login_page = Nokogiri::HTML @login_res
@@ -32,9 +32,8 @@ namespace :db do
       end
     end
     puts "Active: #{user.active}"
-    GetFarmLands.new(@cookies, user.my_villages.second, 20, 30).get
-    GetFarmLands.new(@cookies, user.my_villages.second, 30, 40).get
-    GetFarmLands.new(@cookies, user.my_villages.second, 40, 60).get
-    # get distance a to b
+    # GetFarmLands.new(@cookies, user.my_villages.second, 20, 30).get
+    # GetFarmLands.new(@cookies, user.my_villages.second, 30, 40).get
+    GetFarmLands.new(@cookies, user.my_villages.first, 0, 20).get
   end
 end
