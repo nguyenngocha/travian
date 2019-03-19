@@ -7,6 +7,7 @@ class CreateTroop
     @myvillage = myvillage
     @active = active
     @troop_schedule = troop_schedule
+    @user = myvillage.user
   end
   
   def execute
@@ -33,7 +34,7 @@ class CreateTroop
       return false
     end
 
-    link = "https://ts6.travian.com.vn/build.php#{@myvillage.link}&id=#{@troop_schedule.build_id}&gid=#{gid}"
+    link = "#{@user.server}/build.php#{@myvillage.link}&id=#{@troop_schedule.build_id}&gid=#{gid}"
     puts link
     response = RestClient.get link, cookies: @cookies
     response = Nokogiri::HTML response
@@ -45,7 +46,7 @@ class CreateTroop
       return false
     end
 
-    link = "https://ts6.travian.com.vn/build.php?id=#{@troop_schedule.build_id}"
+    link = "#{@user.server}/build.php?id=#{@troop_schedule.build_id}"
     puts link
     z_value = response.at("form input[name=z]")["value"]
     response = RestClient.post(link, {id: @troop_schedule.build_id.to_s, a: "2", s: "1", z: z_value, "t#{@troop_schedule.troop_id.to_s}": @troop_schedule.troop_number.to_s, s1: "ok"}, cookies: @cookies)
