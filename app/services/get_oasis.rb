@@ -5,33 +5,40 @@ class GetOasis
   def initialize cookies, myvillage, farm_coordinate
     @cookies = cookies
     @myvillage = myvillage
-    @farm_coordinate = farm_coordinate
+    @c_start = 0
+    @c_end = @farm_coordinate
+    @user = myvillage.user
   end
 
   def get
     counter = 0
-    total = (@farm_coordinate*2 + 1) ** 2
-    loop_x = @myvillage.coordinate_x - @farm_coordinate
-    loop_y = @myvillage.coordinate_y - @farm_coordinate
+    loop_x = @myvillage.coordinate_x - @c_end
+    loop_y = @myvillage.coordinate_y - @c_end
 
-    while loop_x < @myvillage.coordinate_x + @farm_coordinate
-      loop_y = @myvillage.coordinate_y - @farm_coordinate
+    while loop_x < @myvillage.coordinate_x + @c_end
+      loop_y = @myvillage.coordinate_y - @c_end
 
-      while loop_y < @myvillage.coordinate_y + @farm_coordinate
-        counter += 1
+      while loop_y < @myvillage.coordinate_y + @c_end
         loop_y += 1
-        if((@myvillage.coordinate_x - loop_x)**2 + (@myvillage.coordinate_y - loop_y)**2 > @farm_coordinate**2 )
+        if (@myvillage.coordinate_x - loop_x)**2 + (@myvillage.coordinate_y - loop_y)**2 > @c_end**2
           next
         end
-        get_oasis loop_x, loop_y
+        
+        if (@myvillage.coordinate_x - loop_x)**2 + (@myvillage.coordinate_y - loop_y)**2 < @c_start**2
+          next
+        end
+        checkList << [loop_x, loop_y]
       end
       loop_x += 1
+    end
+    checkList.shuffle.each do |x, y|
+      get_oasis x, y
     end
   end
 
   def get_oasis loop_x, loop_y
-    responses = RestClient.get("https://ts6.travian.com.vn/position_details.php?x=#{loop_x}&y=#{loop_y}", cookies: {"T3E" => @cookies["T3E"], "lowRes" => "0", "sess_id" => @cookies["sess_id"]})
-    sleep 0.25 +rand*1
+    responses = RestClient.get("#{@user.server}/position_details.php?x=#{loop_x}&y=#{loop_y}", cookies: {"T3E" => @cookies["T3E"], "lowRes" => "0", "sess_id" => @cookies["sess_id"]})
+    sleep 0.25 + rand*1
     page = Nokogiri::HTML responses
 
     if is_oasis? page

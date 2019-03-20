@@ -1,6 +1,7 @@
 namespace :db do
   desc "TODO"
   task update_farms: :environment do
+    system "crontab -r"
     user = User.first
     @cookies = Hash.new
     @cookies["T3E"] = user.t3e
@@ -31,9 +32,10 @@ namespace :db do
         break
       end
     end
-    puts "Active: #{user.active}"
     # GetFarmLands.new(@cookies, user.my_villages.second, 20, 30).get
     # GetFarmLands.new(@cookies, user.my_villages.second, 30, 40).get
-    GetFarmLands.new(@cookies, user.my_villages.first, 0, 20).get
+    GetFarmLands.new(@cookies, user.my_villages.first, 0, 12).get
+    
+    system "whenever --update-crontab --set environment=development"
   end
 end
