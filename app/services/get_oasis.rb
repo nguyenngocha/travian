@@ -12,6 +12,7 @@ class GetOasis
 
   def get
     counter = 0
+    checkList = Array.new
     loop_x = @myvillage.coordinate_x - @c_end
     loop_y = @myvillage.coordinate_y - @c_end
 
