@@ -2,12 +2,13 @@ class Hero
   require "rest-client"
   require "nokogiri"
 
-  def initialize cookies
+  def initialize cookies, user
     @cookies = cookies
+    @user = user
   end
 
   def get_dame
-    responses = RestClient.get("https://ts6.travian.com.vn/hero.php",
+    responses = RestClient.get("#{@user.server}/hero.php",
       cookies: {"T3E" => @cookies["T3E"], "lowRes" => "0", "sess_id" => @cookies["sess_id"]})
     sleep 0.25 + rand*0.5
     page = Nokogiri::HTML responses
