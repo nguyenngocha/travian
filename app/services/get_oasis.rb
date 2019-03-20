@@ -6,7 +6,7 @@ class GetOasis
     @cookies = cookies
     @myvillage = myvillage
     @c_start = 0
-    @c_end = @farm_coordinate
+    @c_end = farm_coordinate
     @user = myvillage.user
   end
 
