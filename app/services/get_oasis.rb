@@ -44,7 +44,7 @@ class GetOasis
     if is_oasis? page
       puts "Oasise.create! coordinate_x: #{loop_x}, coordinate_y: #{loop_y}, my_village_id: #{@myvillage.id}"
 # fix army in here !
-      Oasise.create! coordinate_x: loop_x, coordinate_y: loop_y, my_village_id: @myvillage.id, army4: 2
+      Oasise.create! coordinate_x: loop_x, coordinate_y: loop_y, my_village_id: @myvillage.id
     end
   end
 
