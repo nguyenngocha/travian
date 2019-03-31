@@ -15,12 +15,12 @@ class FarmGold
     page.css("#raidList > .listEntry").each do |farm_list|
       farm_lists << farm_list
     end
-    
+
     farm_lists.shuffle.each do |farm_list|
       send_request farm_list
     end
   end
-  
+
   def send_request farm_list
     @action = farm_list.css("input[name='action']").attr("value").text
     @a = farm_list.css("input[name='a']").attr("value").text
@@ -34,6 +34,7 @@ class FarmGold
     params[:sort] = @sort
     params[:direction] = @direction
     params[:lid] = @lid
+    puts farm_list.css(".listTitleText").text
 
     slot_rows = farm_list.css(".slotRow")
     slot_rows.each do |slot_row|
