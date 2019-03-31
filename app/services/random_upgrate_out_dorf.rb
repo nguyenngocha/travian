@@ -61,6 +61,14 @@ class RandomUpgrateOutDorf
       end
     end
 
+    # if can_upgrate_buildings.empty?
+    #   (0...17).each do |i|
+    #     if builds[i].attr("class").to_s.include? "good"
+    #       can_upgrate_buildings << i+1
+    #     end
+    #   end
+    # end
+
     if can_upgrate_buildings.empty?
       return nil
     end
