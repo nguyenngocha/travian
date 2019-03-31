@@ -16,9 +16,7 @@ class FarmGold
       farm_lists << farm_list
     end
 
-    farm_lists.shuffle.each do |farm_list|
-      send_request farm_list
-    end
+    send_request farm_lists.shuffle.first
   end
 
   def send_request farm_list
