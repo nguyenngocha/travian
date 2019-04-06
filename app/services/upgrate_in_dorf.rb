@@ -6,15 +6,23 @@ class UpgrateInDorf
     @cookies = cookies
     @myvillage = myvillage
     @active = active
+    @user = myvillage.user
   end
 
   def send_request
     print "Inner: "
     
     if @myvillage.update_inner_list.present?
-      
-      @user = User.find_by id: @myvillage.user_id
-      response = RestClient.get "#{@user.server}/dorf2.php#{@myvillage.link}", cookies: @cookies
+
+      @headers = {
+        cookies: @cookies,
+        accept: "text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3",
+        "accept-encoding": "gzip, deflate, br",
+        "accept-language": "ja,en-US;q=0.9,en;q=0.8",
+        "referer": "#{@user.server}",
+        "user-agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/73.0.3683.86 Safari/537.36"
+      }
+      response = RestClient.get "#{@user.server}/dorf2.php#{@myvillage.link}", @headers
       page = Nokogiri::HTML response
       sleep 1
 
