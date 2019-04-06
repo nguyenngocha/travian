@@ -26,8 +26,7 @@ namespace :job do
           accept: "text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3",
           "accept-encoding": "gzip, deflate, br",
           "accept-language": "ja,en-US;q=0.9,en;q=0.8",
-          "referer": "",
-          "user-agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/73.0.3683.86 Safari/537.36"
+          "user-agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/73.0.3683.86 Safari/537.36",
           "referer": "#{user.server}/dorf1.php"
         }
         logout_res = RestClient.get "#{user.server}", @headers
@@ -43,6 +42,15 @@ namespace :job do
           login: login,
           lowRes: "0"
         }
+
+        @headers = {
+          accept: "text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3",
+          "accept-encoding": "gzip, deflate, br",
+          "accept-language": "ja,en-US;q=0.9,en;q=0.8",
+          "user-agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/73.0.3683.86 Safari/537.36",
+          "referer": "#{user.server}"
+        }
+
         @login_res = RestClient.post "#{user.server}/dorf1.php", @params, @headers
         login_page = Nokogiri::HTML @login_res
         unless login_page.css("div#header ul#navigation").empty?
