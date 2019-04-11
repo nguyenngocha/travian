@@ -1,7 +1,7 @@
 namespace :job do
   desc "TODO"
   task upgrate: :environment do
-    sleep rand 3*60
+    # sleep rand 3*60
     user = User.first
     @cookies = Hash.new
     @cookies["T3E"] = user.t3e

@@ -29,7 +29,7 @@ class MyVillage < ApplicationRecord
   def update_inner_list
     return upgrate_schedules.where("upgrate_id >= ? and upgrate_id <= ?", 19, 40)
   end
-  
+
   def update_outer_list
     return upgrate_schedules.where("upgrate_id <= ?", 18)
   end

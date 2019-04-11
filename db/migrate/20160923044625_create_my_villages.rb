@@ -15,6 +15,8 @@ class CreateMyVillages < ActiveRecord::Migration[5.0]
       t.integer :clay_quanity
       t.integer :iron_quanity
       t.integer :crop_quanity
+      t.boolean :upcrop, default: true
+      t.boolean :upresource, default: true
       t.references :user, foreign_key: true
 
       t.timestamps
