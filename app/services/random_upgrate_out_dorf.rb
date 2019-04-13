@@ -10,10 +10,6 @@ class RandomUpgrateOutDorf
   end
 
   def send_request
-    if(!@myvillage.upcrop && !@myvillage.upresource)
-      puts "khong tu upgrate ngoai thanh"
-      return
-    end
 
     print "Outer: "
     @headers = {
@@ -40,6 +36,10 @@ class RandomUpgrateOutDorf
         link_id = upgrate.upgrate_id
       end
     else
+      if(!@myvillage.upcrop && !@myvillage.upresource)
+        puts "khong tu upgrate ngoai thanh"
+        return
+      end
       link_id = get_id_building_enough_resource page
     end
 
