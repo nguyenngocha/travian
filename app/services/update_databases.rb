@@ -27,17 +27,7 @@ class UpdateDatabases
 
     myvillage.update! name: dorf1.css("div#villageNameField").text, link: href.value,
       coordinate_x: x,
-      coordinate_y: y,
-      wood: dorf1.css("li#stockBarResource1 span#l1").text.to_i,
-      clay: dorf1.css("li#stockBarResource2 span#l2").text.to_i,
-      iron: dorf1.css("li#stockBarResource3 span#l3").text.to_i,
-      max_warehouse: dorf1.css("span#stockBarWarehouse").text.to_i,
-      crop: dorf1.css("li#stockBarResource4 span#l4").text.to_i,
-      max_granary: dorf1.css("span#stockBarGranary").text.to_i,
-      wood_quanity: dorf1.css("table#production td.num")[0].text.split(/[^\d]/).join.to_i,
-      clay_quanity: dorf1.css("table#production td.num")[1].text.split(/[^\d]/).join.to_i,
-      iron_quanity: dorf1.css("table#production td.num")[2].text.split(/[^\d]/).join.to_i,
-      crop_quanity: dorf1.css("table#production td.num")[3].text.split(/[^\d]/).join.to_i
+      coordinate_y: y
 
   end
 
@@ -50,28 +40,22 @@ class UpdateDatabases
 
     myvillage = user.my_villages.create! name: dorf1.css("div#villageNameField").text, link: href.value,
       coordinate_x: x,
-      coordinate_y: y,
-      wood: dorf1.css("li#stockBarResource1 span#l1").text.to_i,
-      clay: dorf1.css("li#stockBarResource2 span#l2").text.to_i,
-      iron: dorf1.css("li#stockBarResource3 span#l3").text.to_i,
-      max_warehouse: dorf1.css("span#stockBarWarehouse").text.to_i,
-      crop: dorf1.css("li#stockBarResource4 span#l4").text.to_i,
-      max_granary: dorf1.css("span#stockBarGranary").text.to_i,
-      wood_quanity: dorf1.css("table#production td.num")[0].text.split(/[^\d]/).join.to_i,
-      clay_quanity: dorf1.css("table#production td.num")[1].text.split(/[^\d]/).join.to_i,
-      iron_quanity: dorf1.css("table#production td.num")[2].text.split(/[^\d]/).join.to_i,
-      crop_quanity: dorf1.css("table#production td.num")[3].text.split(/[^\d]/).join.to_i
+      coordinate_y: y
 
   end
 
   def load_my_village user
     hrefs = @page.css("div.innerBox.content ul li a @href")
+
     hrefs.each do |href|
       if href.value.starts_with? "?newdid"
         sleep 1
         response = RestClient.get("#{user.server}/dorf1.php" + href.value,
-          cookies: {"T3E" => user.t3e, "lowRes" => "0", "sess_id" => user.sess_id})
+          cookies: @cookies)
+          
         @dorf1 = Nokogiri::HTML response
+
+        puts check_login? @dorf1
 
         return false if check_login? @dorf1 #keim tra xem con dang login khong
 

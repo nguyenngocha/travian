@@ -78,9 +78,11 @@ class RandomUpgrateOutDorf
     end
 
     if @myvillage.upcrop
-      (0...17).each do |i|
-        if builds[i].attr("class").to_s.include?("good") && builds[i].attr("class").to_s.include?("gid4")
-          can_upgrate_buildings << i+1
+      if can_upgrate_buildings.empty?
+        (0...17).each do |i|
+          if builds[i].attr("class").to_s.include?("good") && builds[i].attr("class").to_s.include?("gid4")
+            can_upgrate_buildings << i+1
+          end
         end
       end
     end
