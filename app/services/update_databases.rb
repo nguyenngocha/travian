@@ -38,7 +38,7 @@ class UpdateDatabases
     x = (x_text.include? "−") ? -x_text.split(/[^\d]/).join.to_i : x_text.split(/[^\d]/).join.to_i
     y = (y_text.include? "−") ? -y_text.split(/[^\d]/).join.to_i : y_text.split(/[^\d]/).join.to_i
 
-    myvillage = user.my_villages.create! name: dorf1.css("div#villageNameField").text, link: href.value,
+    user.my_villages.create! name: dorf1.css("div#villageNameField").text, link: href.value,
       coordinate_x: x,
       coordinate_y: y
 
