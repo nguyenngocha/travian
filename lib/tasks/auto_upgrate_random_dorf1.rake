@@ -46,6 +46,7 @@ namespace :job do
     (0..rand(3)).each do
       RestClient.post "#{user.server}/ajax.php?cmd=getLayoutButtonTitle", @headers, @params
       puts "RestClient.post #{user.server}/ajax.php?cmd=getLayoutButtonTitle, #{@headers}, #{@params}"
+      sleep rand*0.5
     end
   end
 end
