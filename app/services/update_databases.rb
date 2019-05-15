@@ -52,15 +52,15 @@ class UpdateDatabases
         sleep 1
         response = RestClient.get("#{user.server}/dorf1.php" + href.value,
           cookies: @cookies)
-          
+
         @dorf1 = Nokogiri::HTML response
 
-        puts check_login? @dorf1
+        user.update_attributes ajaxToken: @dorf1.css("script").first.child.text.gsub(/\n\t/, '').split(";")[0].split(" = ")[1].gsub(/'/, '')
 
         return false if check_login? @dorf1 #keim tra xem con dang login khong
 
         myvillage = MyVillage.find_by link: href.value
-        if myvillage #neu co myvillage thi update
+        if myvillage.present? #neu co myvillage thi update
           update_my_village myvillage, @dorf1, href
         else #tao my_village moi
           create_my_village @dorf1, user, href

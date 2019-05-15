@@ -70,6 +70,7 @@ ActiveRecord::Schema.define(version: 20190217071627) do
     t.integer  "crop_quanity"
     t.boolean  "upcrop",        default: true
     t.boolean  "upresource",    default: true
+    t.integer  "wait_time",     default: 0
     t.integer  "user_id"
     t.datetime "created_at",                   null: false
     t.datetime "updated_at",                   null: false
@@ -152,6 +153,7 @@ ActiveRecord::Schema.define(version: 20190217071627) do
     t.string   "sess_id"
     t.integer  "active"
     t.string   "server"
+    t.string   "ajaxToken"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end

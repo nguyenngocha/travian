@@ -14,16 +14,22 @@ class RandomUpgrateOutDorf
     print "Outer: "
     @headers = {
         cookies: @cookies,
-        accept: "text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3",
-        "accept-encoding": "gzip, deflate, br",
-        "accept-language": "ja,en-US;q=0.9,en;q=0.8",
         "referer": "#{@user.server}",
         "user-agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/73.0.3683.86 Safari/537.36"
       }
 
     response = RestClient.get("#{@user.server}/dorf1.php#{@myvillage.link}", @headers) 
     page = Nokogiri::HTML response
-    sleep 1
+
+    time = page.css(".buildingList .buildDuration span").first
+    if time.nil?
+      @wait_time = 0
+    else
+      time = time.text.split(":")
+      @wait_time = time[0].to_i*60 + time[1].to_i
+    end
+
+    @myvillage.update_attributes wait_time: @wait_time
 
     # chen them code upgrate uu tien vao day.
     flag = nil
