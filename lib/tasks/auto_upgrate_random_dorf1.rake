@@ -1,12 +1,12 @@
 namespace :job do
   desc "TODO"
   task upgrate: :environment do
-    sleep rand 3*60
+    # sleep rand 3*60
 
     User.all.each do  |user|
       break unless check_update user
       @cookies = Relogin.new(user).run
-      fake_request @cookies, user
+      # fake_request @cookies, user
 
       user.my_villages.shuffle.each do |my_village|
         puts "auto upgrate for #{my_village.name}"
@@ -35,17 +35,17 @@ namespace :job do
 
   def fake_request cookies, user
     @headers = {
-      cookies: @cookies,
-      "user-agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/73.0.3683.86 Safari/537.36"
+      cookies => @cookies,
+      "user-agent" => "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/73.0.3683.86 Safari/537.36"
     }
     @param = {
-      "boxId": "hero",
-      "buttonId": "adventureWhite",
-      "ajaxToken": user.ajaxToken
+      "boxId" => "hero",
+      "buttonId" => "adventureWhite",
+      "ajaxToken" => user.ajaxToken
     }
     (0..rand(3)).each do
-      RestClient.post "#{user.server}/ajax.php?cmd=getLayoutButtonTitle", @headers, @params
       puts "RestClient.post #{user.server}/ajax.php?cmd=getLayoutButtonTitle, #{@headers}, #{@params}"
+      RestClient.post "#{user.server}/ajax.php?cmd=getLayoutButtonTitle", @headers, @params
       sleep rand*0.5
     end
   end
