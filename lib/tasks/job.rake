@@ -3,7 +3,7 @@ require "nokogiri"
 
 namespace :job do
   desc "TODO"
-  task farm_all: :environment do
+  task farm: :environment do
     user = User.first
     @cookies = Hash.new
     @cookies["T3E"] = user.t3e
