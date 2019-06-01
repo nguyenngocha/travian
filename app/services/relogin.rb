@@ -8,9 +8,9 @@ class Relogin
 
   def run
     @cookies = Hash.new
+    @cookies["sess_id"] = @user.sess_id
     @cookies["T3E"] = @user.t3e
     @cookies["lowRes"] = "0"
-    @cookies["sess_id"] = @user.sess_id
     # check login
     @headers = {
       cookies: @cookies,
@@ -51,8 +51,9 @@ class Relogin
       unless login_page.css("div#header ul#navigation").empty?
         @user.update_attributes! t3e: @login_res.cookies["T3E"], sess_id: @login_res.cookies["sess_id"]
         puts "Da dang nhap lai"
-        @cookies["T3E"] = @login_res.cookies["T3E"]
         @cookies["sess_id"] = @login_res.cookies["sess_id"]
+        @cookies["lowRes"] = "0"
+        @cookies["T3E"] = @login_res.cookies["T3E"]
       end
     else
       puts "Van dang nhap"

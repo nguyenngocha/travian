@@ -10,24 +10,36 @@ class FarmGold
   def execute
     @headers = {
       cookies: @cookies,
-      accept: "text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3",
-      "accept-encoding": "gzip, deflate, br",
-      "accept-language": "ja,en-US;q=0.9,en;q=0.8",
       "referer": "#{@user.server}/dorf1.php",
       "user-agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/73.0.3683.86 Safari/537.36"
     }
     response = RestClient.get "#{@user.server}/build.php?gid=16&tt=99", @headers
     page = Nokogiri::HTML response
+    sleep 1
 
     farm_lists = Array.new
-    page.css("#raidList > .listEntry").each do |farm_list|
-      farm_lists << farm_list
+    page.css("#raidList > .listEntry").each_with_index do |farm_list, index|
+      farm_lists << index
     end
-
-    send_request farm_lists.shuffle.first
+    
+    farm_lists.shuffle.each do |index|
+      puts index
+      send_request index
+    end
   end
 
-  def send_request farm_list
+  def send_request index
+    @headers = {
+      cookies: @cookies,
+      "referer": "#{@user.server}/build.php?gid=16&tt=99",
+      "user-agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/73.0.3683.86 Safari/537.36"
+    }
+    response = RestClient.get "#{@user.server}/build.php?gid=16&tt=99", @headers
+    page = Nokogiri::HTML response
+    sleep 1
+
+    farm_list = page.css("#raidList > .listEntry")[index]
+
     @action = farm_list.css("input[name='action']").attr("value").text
     @a = farm_list.css("input[name='a']").attr("value").text
     @sort = farm_list.css("input[name='sort']").attr("value").text
@@ -51,8 +63,9 @@ class FarmGold
       farm_id = slot_row.css("input").attr("name").text
       params[farm_id] = "on"
     end
-
+    puts "RestClient.post(#{@user.server}/build.php?gid=16&tt=99, #{params}, cookies: #{@cookies})"
     RestClient.post("#{@user.server}/build.php?gid=16&tt=99", params, cookies: @cookies)
     sleep 1
+
   end
 end
