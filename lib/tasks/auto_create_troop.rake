@@ -4,7 +4,7 @@ namespace :job do
     # sleep rand 3*60
 
     User.all.each do  |user|
-      break unless check_update user
+      break unless check_create_troop user
       @cookies = Relogin.new(user).run
       # fake_request @cookies, user
 
@@ -16,5 +16,12 @@ namespace :job do
       end
       puts "======================================="
     end
+  end
+
+  def check_create_troop user
+    user.my_villages.each do |my_village|
+      return true if my_village.troop_schedules.present?
+    end
+    return false
   end
 end
