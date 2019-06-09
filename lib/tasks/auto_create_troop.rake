@@ -1,7 +1,7 @@
 namespace :job do
   desc "TODO"
   task create_troop: :environment do
-    # sleep rand 3*60
+    sleep rand 3*60
 
     User.all.each do  |user|
       break unless check_update user
