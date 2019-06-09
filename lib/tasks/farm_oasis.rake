@@ -1,8 +1,10 @@
 namespace :job do
   desc "TODO"
   task farm_oasise: :environment do
+    sleep rand 3*60
     User.all.each do  |user|
-      break unless farm_oasise user
+      puts farm_oasise user
+      next unless farm_oasise user
       @cookies = Relogin.new(user).run
       puts "auto farm oasise for user: #{user.name}"
 
