@@ -38,7 +38,7 @@ class CreateTroop
     }
     response = RestClient.get link, @headers
     response = Nokogiri::HTML response
-    trainUnits = response.css(".trainUnits .details a[href= '#']")[2].text.split(/[^\d]/).join.to_i
+    trainUnits = response.css(".trainUnits .troop#{@troop_schedule.troop_id} .details a[href= '#']")[2].text.split(/[^\d]/).join.to_i
 
     puts trainUnits
     if @troop_schedule.troop_number > trainUnits
