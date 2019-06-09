@@ -34,7 +34,6 @@ class SessionsController < ApplicationController
   def destroy
     RestClient.get "#{current_user.server}/logout.php"
     current_user.my_villages.destroy_all
-    current_user.destroy
     redirect_to root_url
   end
 end
