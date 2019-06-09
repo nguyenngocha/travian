@@ -63,9 +63,14 @@ class FarmGold
       farm_id = slot_row.css("input").attr("name").text
       params[farm_id] = "on"
     end
-    puts "RestClient.post(#{@user.server}/build.php?gid=16&tt=99, #{params}, cookies: #{@cookies})"
-    RestClient.post("#{@user.server}/build.php?gid=16&tt=99", params, cookies: @cookies)
-    sleep 1
 
+    @headers = {
+      cookies: @cookies,
+      "referer": "#{@user.server}/build.php?gid=16&tt=99",
+      "user-agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/73.0.3683.86 Safari/537.36"
+    }
+    puts "RestClient.post(#{@user.server}/build.php?gid=16&tt=99, #{params}, cookies: #{@cookies})"
+    RestClient.post("#{@user.server}/build.php?gid=16&tt=99", params, @headers)
+    sleep 1
   end
 end

@@ -76,7 +76,7 @@ class RandomUpgrateOutDorf
     builds = page.css("#village_map div.level")
 
     if @myvillage.upresource
-      (0...17).each do |i|
+      (0..17).each do |i|
         if builds[i].attr("class").to_s.include?("good") && !builds[i].attr("class").to_s.include?("gid4")
           can_upgrate_buildings << i+1
         end
@@ -85,7 +85,7 @@ class RandomUpgrateOutDorf
 
     if @myvillage.upcrop
       if can_upgrate_buildings.empty?
-        (0...17).each do |i|
+        (0..17).each do |i|
           if builds[i].attr("class").to_s.include?("good") && builds[i].attr("class").to_s.include?("gid4")
             can_upgrate_buildings << i+1
           end

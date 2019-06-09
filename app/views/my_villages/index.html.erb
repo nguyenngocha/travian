@@ -1,14 +1,26 @@
-<table class="table table-striped">
-  <thead>
-    <tr>
-      <% @my_villages.each do |vl| %>
-        <td><%= vl.name %></td>
-      <% end %>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <%= render @my_villages %>
-    </tr>
-  </tbody>
-</table>
+<% size = @my_villages.size %>
+
+<% (0..(size/8)).each do |i| %>
+  <table class="table table-striped">
+    <thead>
+      <tr>
+        <% (0..7).each do |j| %>
+          <% v_id = i*8 + j %>
+          <% if @my_villages.size > v_id %>
+            <td><%= @my_villages[v_id].name %></td>
+          <% end %>
+        <% end %>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <% (0..7).each do |j| %>
+          <% v_id = i*8 + j %>
+          <% if @my_villages.size > v_id %>
+            <%= render @my_villages[v_id] %>
+          <% end %>
+        <% end %>
+      </tr>
+    </tbody>
+  </table>
+<% end %>
