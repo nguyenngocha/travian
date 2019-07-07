@@ -1,8 +1,23 @@
 <div style="padding-top:40px"></div>
 <%= form_for [@village, @upgrate_building] do |f| %>
-  <%= f.label :upgrate_id,
+  <%= f.label :upgrate,
     "nhập ID công trình mà bạn muốn thêm vào lịch nâng cấp trong làng #{@village.name}:" %><br/>
-  <%= f.number_field :upgrate_id, in: 1..40 %>
+  <div class="row">
+		<div class="col-sm-2">
+			<%= f.label :upgrate_id, "ID cong trinh: " %>
+		</div>
+		<div class="col-sm-2">
+			<%= f.number_field :upgrate_id, in: 1..40, class: "form-group" %>
+		</div>
+  </div>
+  <div class="row">
+	  <div class="col-sm-2">
+	    <%= f.label :upgrate_times, "so lan upgrate: " %>
+	  </div>
+	  <div class="col-sm-2">
+	  	<%= f.number_field :upgrate_times, in: 1..20 %>
+  	</div>
+	</div>
   <%= f.hidden_field :my_village_id, value: @village.id %>
   <%= f.submit "Add", class: "btn btn-success" %>
 <% end %>

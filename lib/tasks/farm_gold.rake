@@ -5,7 +5,7 @@ namespace :job do
   desc "TODO"
   task farm_all: :environment do
 
-    sleep rand 3*60
+    # sleep rand 3*60
 
     User.all.each do  |user|
       @cookies = Relogin.new(user).run

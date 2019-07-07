@@ -7,15 +7,12 @@ class UpgrateSchedulesController < ApplicationController
   end
 
   def create
-    @upgrate_building = @village.upgrate_schedules.new upgrate_building_params
-
-    if @upgrate_building.save
-      flash[:success] = "add success"
-      redirect_to my_villages_path
-    else
-      flash[:fail] = "add fail"
-      render :new
+    @update_times = params[:upgrate_schedule][:upgrate_times].to_i
+    (0...@update_times).each do |index|
+      @upgrate_building = @village.upgrate_schedules.new upgrate_building_params
+      @upgrate_building.save
     end
+    redirect_to my_villages_path
   end
 
   def destroy
